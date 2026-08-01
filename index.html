@@ -512,10 +512,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.9.2/proj4.js"></script>
 <script>
 /* ---------------------------------------------------------
-   Données synthétiques (démo) — à remplacer par le catalogue
-   réel de CKQ (ArcGIS Online / API) en production.
+   Catalogue : chargé depuis ./catalog.json au démarrage.
+   Ce fichier est généré par le script batch_convert.py (voir
+   /outils dans le dossier du projet) à partir des GeoTIFF de CKQ.
+   Le contenu ci-dessous ne sert que de secours si catalog.json
+   est absent ou n'a pas encore été déployé.
 --------------------------------------------------------- */
-const GEO_DATA = {
+let GEO_DATA = {
   "lachute-1": {
     crs_proj4: "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +datum=NAD83 +units=m +no_defs +type=crs",
     transform: [1.3748180781439525, -0.7937515875031746, 463042.82274510904, -0.7937515875031746, -1.3748180781439525, 198920.7858914051],
@@ -528,7 +531,7 @@ const GEO_DATA = {
   }
 };
 
-const DATA = [
+let DATA = [
   { region:"Laurentides", rivers:[
     { river:"Rivière Rouge", routes:[
       { id:"riviere-rouge-1", name:"Secteur A — Amont", km:12, niveau:"Intermédiaire" },
@@ -557,6 +560,21 @@ const DATA = [
     ]}
   ]}
 ];
+
+async function loadCatalog(){
+  try {
+    const resp = await fetch("./catalog.json", { cache: "no-store" });
+    if (!resp.ok) throw new Error("catalog.json absent");
+    const cat = await resp.json();
+    if (cat.regions && cat.regions.length){
+      DATA = cat.regions;
+      GEO_DATA = cat.geo || {};
+      console.log(`Catalogue chargé depuis catalog.json (${allRoutes().length} parcours)`);
+    }
+  } catch(err){
+    console.log("catalog.json non trouvé ou invalide — utilisation du catalogue de secours intégré.", err);
+  }
+}
 
 const MAPS_CACHE = "rb-maps-v1";
 let selectedRouteForMap = null;
@@ -880,12 +898,12 @@ if ("serviceWorker" in navigator){
 
 /* ---------- Init ---------- */
 updateNetStatus();
-renderCatalogue().then(()=>{
+loadCatalog().then(() => renderCatalogue()).then(()=>{
   // ouvre la première région par défaut
   const first = document.querySelector(".region");
   if (first) first.classList.add("open");
+  renderComments();
 });
-renderComments();
 </script>
 </body>
 </html>
