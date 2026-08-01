@@ -234,6 +234,41 @@
   }
   .dl-btn.loading{ opacity:0.6; }
 
+  .sub-text{
+    font-size:12.5px;
+    color:var(--ink-soft);
+    margin:-8px 0 14px;
+  }
+  .open-btn{
+    flex:none;
+    border:none;
+    background:var(--teal-dark);
+    color:#fff;
+    font-family:var(--font-body);
+    font-weight:700;
+    font-size:11.5px;
+    border-radius:999px;
+    padding:8px 14px;
+    cursor:pointer;
+  }
+  .delete-btn{
+    flex:none;
+    border:none;
+    background:transparent;
+    color:var(--danger);
+    font-size:16px;
+    padding:6px;
+    cursor:pointer;
+    line-height:1;
+  }
+  .dossier-empty{
+    text-align:center;
+    padding:50px 24px;
+    color:var(--ink-soft);
+    font-size:13.5px;
+    line-height:1.6;
+  }
+
   /* Carte screen */
 
   .map-frame{
@@ -476,6 +511,102 @@
     margin:6px 0 14px;
   }
 
+  /* Accueil / hero */
+  #screen-accueil{
+    margin:0 -20px;
+    padding:0;
+  }
+  .hero{
+    background:linear-gradient(160deg, var(--teal-dark) 0%, var(--brand-2) 55%, var(--teal) 130%);
+    padding:52px 26px 40px;
+    min-height:calc(100dvh - 100px);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    color:#fff;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      repeating-radial-gradient(circle at 12% 15%, transparent 0 22px, rgba(255,255,255,0.06) 23px 24px, transparent 25px 70px),
+      repeating-radial-gradient(circle at 88% 80%, transparent 0 28px, rgba(255,255,255,0.06) 29px 30px, transparent 31px 80px);
+    pointer-events:none;
+  }
+  .hero > *{ position:relative; z-index:1; }
+  .hero-logo{
+    width:76px; height:76px;
+    background:#fff;
+    border-radius:22px;
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:20px;
+    box-shadow:0 10px 30px rgba(0,10,30,0.25);
+  }
+  .hero-logo img{ width:46px; height:46px; }
+  .hero-title{
+    font-family:var(--font-display);
+    font-weight:800;
+    font-size:30px;
+    text-transform:uppercase;
+    letter-spacing:-0.01em;
+    margin:0 0 10px;
+  }
+  .hero-title em{ font-style:normal; color:var(--accent-2); }
+  .hero-tagline{
+    font-size:14.5px;
+    line-height:1.55;
+    color:rgba(255,255,255,0.88);
+    max-width:320px;
+    margin:0 0 22px;
+  }
+  .hero-chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    justify-content:center;
+    margin-bottom:28px;
+  }
+  .hero-chip{
+    background:rgba(255,255,255,0.14);
+    border:1px solid rgba(255,255,255,0.22);
+    color:#fff;
+    font-size:11.5px;
+    font-weight:600;
+    padding:7px 13px;
+    border-radius:999px;
+  }
+  .hero-cta{
+    background:#fff;
+    color:var(--teal-dark);
+    border:none;
+    font-family:var(--font-body);
+    font-weight:800;
+    font-size:14.5px;
+    padding:15px 30px;
+    border-radius:999px;
+    cursor:pointer;
+    box-shadow:0 10px 24px rgba(0,10,30,0.22);
+  }
+  .hero-cta:active{ transform:translateY(1px); }
+  .hero-stats{
+    margin-top:26px;
+    display:flex;
+    gap:22px;
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:rgba(255,255,255,0.75);
+  }
+  .hero-stats b{
+    display:block;
+    font-family:var(--font-display);
+    font-size:19px;
+    font-weight:800;
+    color:#fff;
+  }
+
   /* Bottom nav */
   nav.bottom{
     position:fixed;
@@ -530,7 +661,7 @@
 
 <div id="app">
   <header class="top">
-    <div style="display:flex; align-items:center; gap:10px;">
+    <div style="display:flex; align-items:center; gap:10px; cursor:pointer;" id="home-link">
       <img src="./logo-header.png" alt="Route Bleue" style="width:38px; height:38px; flex:none;">
       <div>
         <span class="brand-eyebrow">Prototype PWA</span>
@@ -540,7 +671,7 @@
     <button id="install-btn">⤓ Installer</button>
   </header>
 
-  <div class="status-strip">
+  <div class="status-strip" id="status-strip">
     <span class="dot" id="net-dot"></span>
     <span id="net-label">En ligne</span>
     <span style="opacity:.4">·</span>
@@ -549,10 +680,35 @@
 
   <main>
 
+    <!-- ACCUEIL -->
+    <section class="screen active" id="screen-accueil">
+      <div class="hero">
+        <div class="hero-logo">
+          <img src="./logo-header.png" alt="Route Bleue">
+        </div>
+        <h1 class="hero-title">Route <em>Bleue</em></h1>
+        <p class="hero-tagline">Les cartes de pagaie du Québec, prêtes pour le terrain — même sans réseau.</p>
+        <div class="hero-chips">
+          <span class="hero-chip">📥 Hors ligne</span>
+          <span class="hero-chip">📍 GPS précis</span>
+          <span class="hero-chip">🗺️ Cartes réelles</span>
+        </div>
+        <button class="hero-cta" id="hero-cta">Explorer le catalogue →</button>
+        <div class="hero-stats" id="hero-stats"></div>
+      </div>
+    </section>
+
     <!-- CATALOGUE -->
-    <section class="screen active" id="screen-catalogue">
+    <section class="screen" id="screen-catalogue">
       <h2 class="screen-title">Catalogue par région</h2>
       <div id="regions"></div>
+    </section>
+
+    <!-- MON DOSSIER -->
+    <section class="screen" id="screen-dossier">
+      <h2 class="screen-title">Mon dossier</h2>
+      <p class="sub-text">Les cartes que t'as téléchargées, prêtes à consulter hors ligne.</p>
+      <div id="dossier-list"></div>
     </section>
 
     <!-- CARTE -->
@@ -583,9 +739,9 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/></svg>
       Catalogue
     </button>
-    <button class="nav-btn" data-screen="carte">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2V6z"/><path d="M9 4v14M15 6v14"/></svg>
-      Carte
+    <button class="nav-btn" data-screen="dossier">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></svg>
+      Mon dossier
     </button>
     <button class="nav-btn" data-screen="communaute">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.38 8.38 0 01-8.5 8.4 8.5 8.5 0 01-4-1L3 20l1.1-5.5A8.4 8.4 0 013 11.5 8.38 8.38 0 0111.5 3a8.5 8.5 0 019.5 8.5z"/></svg>
@@ -745,8 +901,7 @@ async function renderCatalogue(){
 async function downloadRoute(btn){
   const id = btn.dataset.id;
   if (btn.classList.contains("done")) {
-    selectRouteOnMap(id);
-    switchScreen("carte");
+    selectRouteOnMap(id); // ouvre directement en plein écran (voir setFullscreen)
     return;
   }
   btn.classList.add("loading");
@@ -758,12 +913,60 @@ async function downloadRoute(btn){
     btn.classList.remove("loading");
     btn.classList.add("done");
     btn.textContent = "✓ Téléchargée";
-    showToast("Carte enregistrée pour usage hors ligne");
+    showToast("Ajoutée à ton dossier — disponible hors ligne");
     updateDlCount();
+    renderDossier();
   } catch(err){
     btn.classList.remove("loading");
     btn.textContent = "Erreur — réessayer";
   }
+}
+
+async function deleteFromDossier(id){
+  const cache = await caches.open(MAPS_CACHE);
+  await cache.delete(`./maps/${id}.png`);
+  showToast("Retirée de ton dossier");
+  updateDlCount();
+  renderDossier();
+  renderCatalogue(); // remet le bouton "Télécharger" dans le catalogue
+}
+
+async function renderDossier(){
+  const listEl = document.getElementById("dossier-list");
+  if (!listEl) return;
+  const cache = await caches.open(MAPS_CACHE);
+  const keys = await cache.keys();
+  const downloadedIds = keys
+    .map(req => req.url.match(/\/maps\/(.+)\.png$/))
+    .filter(Boolean)
+    .map(m => m[1]);
+
+  const routesById = Object.fromEntries(allRoutes().map(r => [r.id, r]));
+  const items = downloadedIds.map(id => routesById[id]).filter(Boolean);
+
+  if (!items.length){
+    listEl.innerHTML = `<div class="dossier-empty">📂 Ton dossier est vide pour l'instant.<br>Télécharge des cartes depuis le Catalogue pour les retrouver ici, prêtes hors ligne.</div>`;
+    return;
+  }
+
+  listEl.innerHTML = items.map(rt => `
+    <div class="route-card">
+      <div class="route-thumb" style="background-image:url('map-${rt.id}.png')"></div>
+      <div class="route-info">
+        <div class="name">${rt.name}</div>
+        <div class="meta">${rt.river} · ${rt.region}</div>
+      </div>
+      <button class="open-btn" data-open="${rt.id}">Ouvrir</button>
+      <button class="delete-btn" data-delete="${rt.id}" title="Retirer du dossier">🗑</button>
+    </div>
+  `).join("");
+
+  listEl.querySelectorAll("[data-open]").forEach(b=>{
+    b.addEventListener("click", ()=> selectRouteOnMap(b.dataset.open));
+  });
+  listEl.querySelectorAll("[data-delete]").forEach(b=>{
+    b.addEventListener("click", ()=> deleteFromDossier(b.dataset.delete));
+  });
 }
 
 async function updateDlCount(){
@@ -876,11 +1079,13 @@ function setupMapGestures(){
       const factor = dist / pinchStartDist;
       const midX = (pts[0].x + pts[1].x) / 2;
       const midY = (pts[0].y + pts[1].y) / 2;
-      viewScale = Math.min(VIEW_MAX, Math.max(VIEW_MIN, pinchStartScale * factor));
+      const newScale = Math.min(VIEW_MAX, Math.max(VIEW_MIN, pinchStartScale * factor));
+      const ratio = newScale / viewScale;
       const rect = mapFrame.getBoundingClientRect();
       const cx = midX - rect.left, cy = midY - rect.top;
-      viewX = cx - (cx - viewX);
-      viewY = cy - (cy - viewY);
+      viewX = cx - (cx - viewX) * ratio;
+      viewY = cy - (cy - viewY) * ratio;
+      viewScale = newScale;
       clampPan();
       applyTransform(false);
     }
@@ -903,6 +1108,7 @@ function setupMapGestures(){
   // double-tap pour zoomer
   let lastTap = 0;
   mapFrame.addEventListener("pointerup", (e)=>{
+    if (e.target.closest(".map-controls, .map-top-bar, .map-coords-bar")) return;
     const now = Date.now();
     if (now - lastTap < 300 && activePointers.size === 0){
       zoomBy(viewScale < 2.5 ? 1.8 : 1/1.8, e.clientX, e.clientY);
@@ -913,15 +1119,19 @@ function setupMapGestures(){
 setupMapGestures();
 
 /* La vue carte s'ouvre TOUJOURS en plein écran dès qu'une carte est chargée
-   (voir selectRouteOnMap) — pas de bouton à presser. Quitter ramène au
-   Catalogue, puisqu'il n'y a pas de vue "carte normale" séparée. */
+   (voir selectRouteOnMap) — pas de bouton à presser. On force l'écran
+   "carte" actif AVANT de passer en plein écran : sinon son parent .screen
+   est display:none et ça cache le plein écran, peu importe son
+   positionnement fixed (même bug que la première fois). Quitter ramène
+   à "Mon dossier", puisqu'il n'y a pas de vue "carte normale" séparée. */
 function setFullscreen(on){
   isFullscreen = on;
+  if (on) switchScreen("carte");
   mapFrame.classList.toggle("fullscreen", on);
   document.body.classList.toggle("map-fullscreen-active", on);
   renderMapChrome();
   if (!on){
-    switchScreen("catalogue");
+    switchScreen("dossier");
   }
 }
 
@@ -984,7 +1194,7 @@ async function selectRouteOnMap(routeId){
     mapFrame.innerHTML = `
       <div class="map-transform-layer" id="map-transform-layer">
         <img src="${url}" alt="Carte hors ligne">
-        <div class="gps-dot" id="gps-dot" style="left:50%; top:50%; display:${isTracking ? 'block' : 'none'};"></div>
+        <div class="gps-dot" id="gps-dot" style="left:50%; top:50%; display:none;"></div>
       </div>`;
     resetView(false);
     setFullscreen(true); // ouvre directement en plein écran
@@ -995,7 +1205,8 @@ function startTracking(){
   isTracking = true;
   renderMapChrome(); // rebâtit les contrôles flottants (bouton GPS actif, barre coords)
   const dot = document.getElementById("gps-dot");
-  if (dot) dot.style.display = "block";
+  // le point reste caché tant qu'aucune position réelle n'est reçue —
+  // sinon il paraît "figé au centre" comme si rien ne se passait.
 
   const geo = GEO_DATA[selectedRouteForMap];
 
@@ -1046,6 +1257,7 @@ function startSimulatedDot(){
     const y = 35 + Math.sin(t*1.7)*18;
     dot.style.left = x+"%";
     dot.style.top = y+"%";
+    dot.style.display = "block";
     lastDotPercent = { x, y };
   }, 500);
 }
@@ -1054,6 +1266,8 @@ function stopTracking(){
   isTracking = false;
   if (watchId){ navigator.geolocation.clearWatch(watchId); watchId = null; }
   if (simInterval){ clearInterval(simInterval); simInterval = null; }
+  const dot = document.getElementById("gps-dot");
+  if (dot) dot.style.display = "none"; // on ne l'affiche pas quand le suivi est arrêté
   renderMapChrome();
   const coordsEl = document.getElementById("coords");
   if (coordsEl) coordsEl.textContent = "GPS arrêté";
@@ -1102,15 +1316,32 @@ function switchScreen(name){
   document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
   document.getElementById(`screen-${name}`).classList.add("active");
   document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active", b.dataset.screen===name));
+  const isHome = name === "accueil";
+  document.querySelector("nav.bottom").style.display = isHome ? "none" : "flex";
+  document.getElementById("status-strip").style.display = isHome ? "none" : "flex";
+  document.getElementById("app").style.paddingBottom = isHome ? "0" : "76px";
 }
 document.querySelectorAll(".nav-btn").forEach(btn=>{
   btn.addEventListener("click", ()=> {
     switchScreen(btn.dataset.screen);
-    if (btn.dataset.screen === "carte" && selectedRouteForMap && mapFrame.querySelector(".map-transform-layer")){
-      setFullscreen(true);
+    if (btn.dataset.screen === "dossier"){
+      renderDossier();
     }
   });
 });
+document.getElementById("hero-cta").addEventListener("click", ()=> switchScreen("catalogue"));
+document.getElementById("home-link").addEventListener("click", ()=> switchScreen("accueil"));
+
+function updateHeroStats(){
+  const el = document.getElementById("hero-stats");
+  if (!el) return;
+  const nRoutes = allRoutes().length;
+  const nRegions = DATA.length;
+  el.innerHTML = `
+    <div><b>${nRegions}</b>régions</div>
+    <div><b>${nRoutes}</b>parcours</div>
+  `;
+}
 
 /* ---------- Statut réseau ---------- */
 function updateMapNetBadge(){
@@ -1162,11 +1393,14 @@ if ("serviceWorker" in navigator){
 
 /* ---------- Init ---------- */
 updateNetStatus();
+switchScreen("accueil");
 loadCatalog().then(() => renderCatalogue()).then(()=>{
   // ouvre la première région par défaut
   const first = document.querySelector(".region");
   if (first) first.classList.add("open");
   renderComments();
+  updateHeroStats();
+  renderDossier();
 });
 </script>
 </body>
