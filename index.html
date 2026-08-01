@@ -309,6 +309,24 @@
   }
   .map-controls button:active{ transform:scale(0.94); }
   .map-controls .recenter{ font-size:16px; }
+  .map-controls button.active{ background:var(--accent); }
+
+  .map-coords-bar{
+    position:absolute;
+    left:50%; bottom:10px;
+    transform:translateX(-50%);
+    background:rgba(13,30,48,0.82);
+    color:#fff;
+    font-family:var(--font-mono);
+    font-size:11px;
+    padding:6px 14px;
+    border-radius:999px;
+    white-space:nowrap;
+    z-index:5;
+    max-width:90%;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
 
   .map-top-bar{
     position:absolute;
@@ -354,12 +372,10 @@
   body.map-fullscreen-active header.top,
   body.map-fullscreen-active .status-strip,
   body.map-fullscreen-active nav.bottom,
-  body.map-fullscreen-active .screen-title,
-  body.map-fullscreen-active .coords,
-  body.map-fullscreen-active .gps-btn,
-  body.map-fullscreen-active main{
+  body.map-fullscreen-active .screen-title{
     display:none !important;
   }
+  body.map-fullscreen-active main{ padding:0; }
   body.map-fullscreen-active #app{ padding-bottom:0; }
 
   .coords{
@@ -547,11 +563,6 @@
           Télécharge une carte dans le Catalogue,<br>puis sélectionne-la ici pour la consulter hors ligne.
         </div>
       </div>
-      <div style="text-align:center; margin-top:8px;">
-        <button class="map-fs-toggle" id="fs-toggle" disabled>⛶ Plein écran</button>
-      </div>
-      <div class="coords" id="coords">position — en attente</div>
-      <button class="gps-btn" id="gps-btn" disabled>Activer la géolocalisation</button>
     </section>
 
     <!-- COMMUNAUTÉ -->
@@ -764,9 +775,6 @@ async function updateDlCount(){
 
 /* ---------- Écran Carte ---------- */
 const mapFrame = document.getElementById("map-frame");
-const gpsBtn = document.getElementById("gps-btn");
-const coordsEl = document.getElementById("coords");
-const fsToggleBtn = document.getElementById("fs-toggle");
 
 /* Projette une position GPS (WGS84 lat/lon) vers un pourcentage x/y
    sur l'image de la carte, à partir de la transformation affine du
@@ -788,6 +796,7 @@ function projectLatLonToPercent(lat, lon, geo){
 let viewScale = 1, viewX = 0, viewY = 0;
 const VIEW_MIN = 1, VIEW_MAX = 6;
 let isFullscreen = false;
+let isTracking = false;
 let lastDotPercent = { x: 50, y: 50 };
 const activePointers = new Map();
 let pinchStartDist = null, pinchStartScale = 1;
@@ -842,7 +851,7 @@ function recenterOnGPS(){
 function setupMapGestures(){
   if (!mapFrame) return;
   mapFrame.addEventListener("pointerdown", (e)=>{
-    if (e.target.closest(".map-controls, .map-top-bar")) return;
+    if (e.target.closest(".map-controls, .map-top-bar, .map-coords-bar")) return;
     mapFrame.setPointerCapture(e.pointerId);
     activePointers.set(e.pointerId, { x:e.clientX, y:e.clientY });
     if (activePointers.size === 1){
@@ -903,29 +912,34 @@ function setupMapGestures(){
 }
 setupMapGestures();
 
-fsToggleBtn.addEventListener("click", ()=> setFullscreen(!isFullscreen));
-
+/* La vue carte s'ouvre TOUJOURS en plein écran dès qu'une carte est chargée
+   (voir selectRouteOnMap) — pas de bouton à presser. Quitter ramène au
+   Catalogue, puisqu'il n'y a pas de vue "carte normale" séparée. */
 function setFullscreen(on){
   isFullscreen = on;
   mapFrame.classList.toggle("fullscreen", on);
   document.body.classList.toggle("map-fullscreen-active", on);
-  fsToggleBtn.textContent = on ? "✕ Quitter le plein écran" : "⛶ Plein écran";
   renderMapChrome();
-  resetView(false);
+  if (!on){
+    switchScreen("catalogue");
+  }
 }
 
 function renderMapChrome(){
   const existingTop = mapFrame.querySelector(".map-top-bar");
   const existingControls = mapFrame.querySelector(".map-controls");
+  const existingCoords = mapFrame.querySelector(".map-coords-bar");
   if (existingTop) existingTop.remove();
   if (existingControls) existingControls.remove();
+  if (existingCoords) existingCoords.remove();
   if (!mapFrame.querySelector(".map-transform-layer")) return; // pas de carte chargée
 
   const geo = GEO_DATA[selectedRouteForMap];
+
   const topBar = document.createElement("div");
   topBar.className = "map-top-bar";
   topBar.innerHTML = `
-    ${isFullscreen ? `<button class="map-exit-btn" id="map-exit-btn">✕</button>` : `<span></span>`}
+    <button class="map-exit-btn" id="map-exit-btn">✕</button>
     <span style="display:flex; gap:6px;">
       ${geo ? `<span class="map-badge-floating">📍 Géoréférencée</span>` : ``}
       <span class="map-badge-floating" id="map-net-badge" style="background:rgba(13,30,48,0.82);"></span>
@@ -933,9 +947,7 @@ function renderMapChrome(){
   `;
   mapFrame.appendChild(topBar);
   updateMapNetBadge();
-  if (isFullscreen){
-    document.getElementById("map-exit-btn").addEventListener("click", ()=> setFullscreen(false));
-  }
+  document.getElementById("map-exit-btn").addEventListener("click", ()=> setFullscreen(false));
 
   const controls = document.createElement("div");
   controls.className = "map-controls";
@@ -943,11 +955,23 @@ function renderMapChrome(){
     <button id="zoom-in" title="Zoomer">+</button>
     <button id="zoom-out" title="Dézoomer">–</button>
     <button class="recenter" id="recenter-btn" title="Recentrer sur ma position">⌖</button>
+    <button id="gps-toggle-btn" title="Activer/arrêter le suivi GPS">📍</button>
   `;
   mapFrame.appendChild(controls);
   document.getElementById("zoom-in").addEventListener("click", ()=> zoomBy(1.4));
   document.getElementById("zoom-out").addEventListener("click", ()=> zoomBy(1/1.4));
   document.getElementById("recenter-btn").addEventListener("click", recenterOnGPS);
+  const gpsToggleBtn = document.getElementById("gps-toggle-btn");
+  gpsToggleBtn.classList.toggle("active", isTracking);
+  gpsToggleBtn.addEventListener("click", ()=>{
+    if (isTracking) stopTracking(); else startTracking();
+  });
+
+  const coordsBar = document.createElement("div");
+  coordsBar.className = "map-coords-bar";
+  coordsBar.id = "coords";
+  coordsBar.textContent = isTracking ? "position — recherche…" : "GPS inactif — touche 📍 pour suivre ta position";
+  mapFrame.appendChild(coordsBar);
 }
 
 async function selectRouteOnMap(routeId){
@@ -960,25 +984,16 @@ async function selectRouteOnMap(routeId){
     mapFrame.innerHTML = `
       <div class="map-transform-layer" id="map-transform-layer">
         <img src="${url}" alt="Carte hors ligne">
-        <div class="gps-dot" id="gps-dot" style="left:50%; top:50%; display:none;"></div>
+        <div class="gps-dot" id="gps-dot" style="left:50%; top:50%; display:${isTracking ? 'block' : 'none'};"></div>
       </div>`;
     resetView(false);
-    renderMapChrome();
-    gpsBtn.disabled = false;
-    fsToggleBtn.disabled = false;
+    setFullscreen(true); // ouvre directement en plein écran
   }
 }
 
-gpsBtn.addEventListener("click", ()=>{
-  if (watchId || simInterval){
-    stopTracking();
-    return;
-  }
-  startTracking();
-});
-
 function startTracking(){
-  gpsBtn.textContent = "Arrêter le suivi";
+  isTracking = true;
+  renderMapChrome(); // rebâtit les contrôles flottants (bouton GPS actif, barre coords)
   const dot = document.getElementById("gps-dot");
   if (dot) dot.style.display = "block";
 
@@ -988,7 +1003,8 @@ function startTracking(){
     watchId = navigator.geolocation.watchPosition(
       pos => {
         const { latitude, longitude, accuracy } = pos.coords;
-        coordsEl.textContent = `${latitude.toFixed(5)}, ${longitude.toFixed(5)} · ±${Math.round(accuracy)} m`;
+        const coordsEl = document.getElementById("coords");
+        if (coordsEl) coordsEl.textContent = `${latitude.toFixed(5)}, ${longitude.toFixed(5)} · ±${Math.round(accuracy)} m`;
 
         if (geo && dot){
           // Carte réellement géoréférencée : on projette la vraie position.
@@ -997,7 +1013,7 @@ function startTracking(){
           dot.style.top = y + "%";
           dot.style.display = "block";
           lastDotPercent = { x, y };
-          if (!inBounds){
+          if (!inBounds && coordsEl){
             coordsEl.textContent += " · hors de la zone couverte par cette carte";
           }
         } else if (dot){
@@ -1006,14 +1022,16 @@ function startTracking(){
         }
       },
       err => {
-        coordsEl.textContent = "Position indisponible — simulation activée";
+        const coordsEl = document.getElementById("coords");
+        if (coordsEl) coordsEl.textContent = "Position indisponible — simulation activée";
         if (!geo) startSimulatedDot();
       },
       { enableHighAccuracy:true }
     );
     if (!geo) startSimulatedDot(); // anime le point sur les cartes de démo non géoréférencées
   } else {
-    coordsEl.textContent = "Géolocalisation non supportée — simulation";
+    const coordsEl = document.getElementById("coords");
+    if (coordsEl) coordsEl.textContent = "Géolocalisation non supportée — simulation";
     if (!geo) startSimulatedDot();
   }
 }
@@ -1033,10 +1051,12 @@ function startSimulatedDot(){
 }
 
 function stopTracking(){
-  gpsBtn.textContent = "Activer la géolocalisation";
+  isTracking = false;
   if (watchId){ navigator.geolocation.clearWatch(watchId); watchId = null; }
   if (simInterval){ clearInterval(simInterval); simInterval = null; }
-  coordsEl.textContent = "suivi arrêté";
+  renderMapChrome();
+  const coordsEl = document.getElementById("coords");
+  if (coordsEl) coordsEl.textContent = "GPS arrêté";
 }
 
 /* ---------- Communauté (démo locale, à brancher sur un backend) ---------- */
@@ -1084,7 +1104,12 @@ function switchScreen(name){
   document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active", b.dataset.screen===name));
 }
 document.querySelectorAll(".nav-btn").forEach(btn=>{
-  btn.addEventListener("click", ()=> switchScreen(btn.dataset.screen));
+  btn.addEventListener("click", ()=> {
+    switchScreen(btn.dataset.screen);
+    if (btn.dataset.screen === "carte" && selectedRouteForMap && mapFrame.querySelector(".map-transform-layer")){
+      setFullscreen(true);
+    }
+  });
 });
 
 /* ---------- Statut réseau ---------- */
