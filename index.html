@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Route Bleue — Cartes hors ligne</title>
+<meta name="theme-color" content="#002569">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" href="./icon-192.png">
+<link rel="apple-touch-icon" href="./icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F2F8FC;
+    --ink:#0D1E30;
+    --ink-soft:#5A7A93;
+    --teal:#009EC2;
+    --teal-dark:#002569;
+    --brand-2:#003080;
+    --brand-dark:#001847;
+    --accent-2:#5CD4ED;
+    --foam:#E5F4FB;
+    --ripple:#B8DDEF;
+    --sand:#009EC2;
+    --sand-dark:#007A99;
+    --line:#DCEAF3;
+    --card:#FFFFFF;
+    --danger:#C05B38;
+    --success:#2D9E6B;
+    --radius:14px;
+    --font-display:'Montserrat', Arial, sans-serif;
+    --font-body:'Montserrat', Arial, sans-serif;
+    --font-mono:'Montserrat', Arial, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;}
+  html,body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-body);
+    -webkit-font-smoothing:antialiased;
+  }
+  #app{
+    max-width:520px;
+    margin:0 auto;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    position:relative;
+    padding-bottom:76px;
+  }
+
+  /* topographic backdrop */
+  .topo-bg{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    opacity:0.5;
+    background:
+      repeating-radial-gradient(circle at 15% 20%, transparent 0 18px, var(--line) 19px 20px, transparent 21px 60px),
+      repeating-radial-gradient(circle at 85% 75%, transparent 0 24px, var(--line) 25px 26px, transparent 27px 70px);
+  }
+
+  header.top{
+    padding:22px 20px 16px;
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:12px;
+  }
+  header.top .brand-eyebrow{
+    font-family:var(--font-mono);
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--teal-dark);
+    opacity:0.75;
+    display:block;
+    margin-bottom:4px;
+  }
+  header.top h1{
+    font-family:var(--font-display);
+    font-weight:800;
+    font-size:23px;
+    margin:0;
+    line-height:1.05;
+    letter-spacing:-0.01em;
+    color:var(--ink);
+    text-transform:uppercase;
+  }
+  header.top h1 em{
+    font-style:normal;
+    color:var(--teal-dark);
+  }
+  #install-btn{
+    display:none;
+    align-items:center;
+    gap:6px;
+    background:#fff;
+    color:var(--teal-dark);
+    border:1.5px solid var(--teal-dark);
+    border-radius:999px;
+    padding:9px 14px;
+    font-family:var(--font-body);
+    font-weight:700;
+    font-size:11.5px;
+    letter-spacing:0.03em;
+    white-space:nowrap;
+    cursor:pointer;
+  }
+  #install-btn:active{ transform:translateY(1px); }
+
+  .status-strip{
+    margin:0 20px 18px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-family:var(--font-mono);
+    font-size:11.5px;
+    color:var(--ink-soft);
+  }
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);flex:none;}
+  .dot.off{background:var(--danger);}
+
+  main{ flex:1; padding:0 20px; }
+  section.screen{ display:none; }
+  section.screen.active{ display:block; }
+
+  /* Catalogue */
+  .region{
+    margin-bottom:14px;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    background:var(--card);
+    overflow:hidden;
+  }
+  .region-head{
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px;
+    background:linear-gradient(135deg, var(--teal-dark) 0%, var(--brand-2) 100%);
+    border:none;
+    cursor:pointer;
+    text-align:left;
+    font-family:var(--font-display);
+    font-size:14px;
+    font-weight:700;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:#fff;
+  }
+  .region-head .count{
+    font-family:var(--font-body);
+    font-size:10.5px;
+    color:#fff;
+    opacity:0.75;
+    font-weight:500;
+    text-transform:none;
+    letter-spacing:0;
+  }
+  .region-head .chevron{
+    transition:transform .2s ease;
+    color:#fff;
+    margin-left:10px;
+  }
+  .region.open .chevron{ transform:rotate(90deg); }
+  .region-body{
+    display:none;
+    padding:0 16px 14px;
+  }
+  .region.open .region-body{ display:block; }
+
+  .river{ margin-top:8px; }
+  .river-name{
+    font-family:var(--font-mono);
+    font-size:11.5px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--teal-dark);
+    opacity:0.85;
+    margin:14px 0 8px;
+  }
+
+  .route-card{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:11px 12px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:#fff;
+    margin-bottom:8px;
+  }
+  .route-thumb{
+    width:44px;height:44px;border-radius:8px;
+    background:var(--teal-dark);
+    flex:none;
+    background-size:cover;
+    background-position:center;
+  }
+  .route-info{ flex:1; min-width:0; }
+  .route-info .name{
+    font-weight:600;
+    font-size:14px;
+    color:var(--ink);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+  .route-info .meta{
+    font-family:var(--font-mono);
+    font-size:11px;
+    color:var(--ink-soft);
+    margin-top:2px;
+  }
+  .dl-btn{
+    flex:none;
+    border:1.5px solid var(--teal-dark);
+    background:transparent;
+    color:var(--teal-dark);
+    font-family:var(--font-body);
+    font-weight:600;
+    font-size:11.5px;
+    border-radius:999px;
+    padding:7px 12px;
+    cursor:pointer;
+  }
+  .dl-btn.done{
+    background:var(--teal);
+    border-color:var(--teal);
+    color:#fff;
+  }
+  .dl-btn.loading{ opacity:0.6; }
+
+  /* Carte screen */
+  .map-toolbar{
+    display:flex;
+    gap:8px;
+    margin-bottom:12px;
+  }
+  .seg{
+    flex:1;
+    text-align:center;
+    padding:9px 8px;
+    border-radius:10px;
+    border:1px solid var(--line);
+    background:#fff;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--ink-soft);
+    cursor:pointer;
+  }
+  .seg.active{ background:var(--teal-dark); color:#fff; border-color:var(--teal-dark); }
+
+  .map-frame{
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+    background:#fff;
+    position:relative;
+    height:340px;
+  }
+  .map-frame img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .map-frame .empty{
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:8px;
+    padding:30px;
+    text-align:center;
+    color:var(--ink-soft);
+    font-size:13px;
+  }
+  .gps-dot{
+    position:absolute;
+    width:16px;height:16px;
+    border-radius:50%;
+    background:var(--accent-2);
+    border:3px solid var(--teal-dark);
+    transform:translate(-50%,-50%);
+    box-shadow:0 0 0 6px rgba(92,212,237,0.35);
+    transition:left .5s linear, top .5s linear;
+  }
+  .coords{
+    font-family:var(--font-mono);
+    font-size:11.5px;
+    color:var(--ink-soft);
+    margin-top:10px;
+    text-align:center;
+  }
+  .gps-btn{
+    width:100%;
+    margin-top:12px;
+    padding:13px;
+    border-radius:12px;
+    border:none;
+    background:var(--teal-dark);
+    color:#fff;
+    font-family:var(--font-body);
+    font-weight:700;
+    font-size:14px;
+    cursor:pointer;
+  }
+  .gps-btn[disabled]{ opacity:0.45; cursor:not-allowed; }
+
+  /* Communauté */
+  .comment{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:12px 14px;
+    margin-bottom:10px;
+  }
+  .comment .who{
+    font-weight:600;
+    font-size:13px;
+  }
+  .comment .route-tag{
+    font-family:var(--font-mono);
+    font-size:10.5px;
+    color:var(--teal-dark);
+    background:rgba(63,166,160,0.14);
+    padding:2px 7px;
+    border-radius:6px;
+    margin-left:6px;
+  }
+  .comment p{
+    margin:6px 0 0;
+    font-size:13.5px;
+    color:var(--ink-soft);
+    line-height:1.45;
+  }
+  .comment-form{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:12px;
+    margin-bottom:16px;
+  }
+  .comment-form textarea{
+    width:100%;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:9px 10px;
+    font-family:var(--font-body);
+    font-size:13.5px;
+    resize:vertical;
+    min-height:56px;
+  }
+  .comment-form select{
+    width:100%;
+    margin-bottom:8px;
+    padding:8px 9px;
+    border-radius:8px;
+    border:1px solid var(--line);
+    font-family:var(--font-body);
+    font-size:13px;
+    background:#fff;
+  }
+  .comment-form button{
+    margin-top:8px;
+    background:var(--teal-dark);
+    border:none;
+    color:#fff;
+    font-family:var(--font-body);
+    font-weight:700;
+    font-size:12px;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    padding:10px 18px;
+    border-radius:10px;
+    cursor:pointer;
+  }
+
+  h2.screen-title{
+    font-family:var(--font-display);
+    font-size:20px;
+    font-weight:600;
+    margin:6px 0 14px;
+  }
+
+  /* Bottom nav */
+  nav.bottom{
+    position:fixed;
+    bottom:0; left:50%;
+    transform:translateX(-50%);
+    width:100%;
+    max-width:520px;
+    background:var(--card);
+    border-top:1px solid var(--line);
+    display:flex;
+    padding:8px 10px calc(8px + env(safe-area-inset-bottom));
+  }
+  nav.bottom button{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:3px;
+    background:none;
+    border:none;
+    font-family:var(--font-body);
+    font-size:11px;
+    font-weight:600;
+    color:var(--ink-soft);
+    padding:6px 4px;
+    cursor:pointer;
+  }
+  nav.bottom button.active{ color:var(--teal-dark); }
+  nav.bottom button svg{ width:20px; height:20px; }
+
+  .toast{
+    position:fixed;
+    bottom:82px; left:50%;
+    transform:translateX(-50%) translateY(10px);
+    background:var(--teal-dark);
+    color:#fff;
+    font-size:12.5px;
+    padding:9px 16px;
+    border-radius:999px;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .25s ease, transform .25s ease;
+    z-index:50;
+    white-space:nowrap;
+  }
+  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<div class="topo-bg"></div>
+
+<div id="app">
+  <header class="top">
+    <div style="display:flex; align-items:center; gap:10px;">
+      <img src="./logo-header.png" alt="Route Bleue" style="width:38px; height:38px; flex:none;">
+      <div>
+        <span class="brand-eyebrow">Prototype PWA</span>
+        <h1>Route <em>Bleue</em></h1>
+      </div>
+    </div>
+    <button id="install-btn">⤓ Installer</button>
+  </header>
+
+  <div class="status-strip">
+    <span class="dot" id="net-dot"></span>
+    <span id="net-label">En ligne</span>
+    <span style="opacity:.4">·</span>
+    <span id="dl-count">0 carte téléchargée</span>
+  </div>
+
+  <main>
+
+    <!-- CATALOGUE -->
+    <section class="screen active" id="screen-catalogue">
+      <h2 class="screen-title">Catalogue par région</h2>
+      <div id="regions"></div>
+    </section>
+
+    <!-- CARTE -->
+    <section class="screen" id="screen-carte">
+      <h2 class="screen-title">Carte &amp; position</h2>
+      <div class="map-toolbar">
+        <div class="seg active" data-mode="offline">Mode hors ligne</div>
+        <div class="seg" data-mode="online">Mode en ligne (OSM)</div>
+      </div>
+      <div class="map-frame" id="map-frame">
+        <div class="empty">
+          Télécharge une carte dans le Catalogue,<br>puis sélectionne-la ici pour la consulter hors ligne.
+        </div>
+      </div>
+      <div class="coords" id="coords">position — en attente</div>
+      <button class="gps-btn" id="gps-btn" disabled>Activer la géolocalisation</button>
+    </section>
+
+    <!-- COMMUNAUTÉ -->
+    <section class="screen" id="screen-communaute">
+      <h2 class="screen-title">Commentaires des paddleurs</h2>
+      <div class="comment-form">
+        <select id="comment-route"></select>
+        <textarea id="comment-text" placeholder="Niveau d'eau, obstacles, mise à l'eau…"></textarea>
+        <button id="comment-submit">Publier</button>
+      </div>
+      <div id="comments"></div>
+    </section>
+
+  </main>
+
+  <nav class="bottom">
+    <button class="nav-btn active" data-screen="catalogue">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 9v11"/></svg>
+      Catalogue
+    </button>
+    <button class="nav-btn" data-screen="carte">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2V6z"/><path d="M9 4v14M15 6v14"/></svg>
+      Carte
+    </button>
+    <button class="nav-btn" data-screen="communaute">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.38 8.38 0 01-8.5 8.4 8.5 8.5 0 01-4-1L3 20l1.1-5.5A8.4 8.4 0 013 11.5 8.38 8.38 0 0111.5 3a8.5 8.5 0 019.5 8.5z"/></svg>
+      Communauté
+    </button>
+  </nav>
+
+  <div class="toast" id="toast"></div>
+</div>
+
+<script>
+/* ---------------------------------------------------------
+   Données synthétiques (démo) — à remplacer par le catalogue
+   réel de CKQ (ArcGIS Online / API) en production.
+--------------------------------------------------------- */
+const DATA = [
+  { region:"Laurentides", rivers:[
+    { river:"Rivière Rouge", routes:[
+      { id:"riviere-rouge-1", name:"Secteur A — Amont", km:12, niveau:"Intermédiaire" },
+      { id:"riviere-rouge-2", name:"Secteur B — Chutes", km:8, niveau:"Avancé" },
+    ]}
+  ]},
+  { region:"Baie-James / Jamésie", rivers:[
+    { river:"Rivière Broadback", routes:[
+      { id:"broadback-1", name:"Section amont", km:34, niveau:"Expédition" },
+    ]}
+  ]},
+  { region:"Côte-Nord", rivers:[
+    { river:"Rivière Moisie", routes:[
+      { id:"moisie-1", name:"Section 1 — Mise à l'eau", km:21, niveau:"Avancé" },
+    ]},
+    { river:"Rivière aux Rats", routes:[
+      { id:"aux-rats-1", name:"Boucle principale", km:15, niveau:"Intermédiaire" },
+    ]}
+  ]},
+  { region:"Saguenay–Lac-Saint-Jean", rivers:[
+    { river:"Rivière Kenogami", routes:[
+      { id:"kenogami-1", name:"Section familiale", km:9, niveau:"Débutant" },
+    ]}
+  ]}
+];
+
+const MAPS_CACHE = "rb-maps-v1";
+let selectedRouteForMap = null;
+let mapMode = "offline";
+let watchId = null;
+let simInterval = null;
+
+/* ---------- Rendu du catalogue ---------- */
+const regionsEl = document.getElementById("regions");
+const commentRouteSelect = document.getElementById("comment-route");
+
+function allRoutes(){
+  const out = [];
+  DATA.forEach(r => r.rivers.forEach(riv => riv.routes.forEach(rt => {
+    out.push({...rt, region:r.region, river:riv.river});
+  })));
+  return out;
+}
+
+function niveauMeta(rt){ return `${rt.km} km · ${rt.niveau}`; }
+
+async function isDownloaded(routeId){
+  const cache = await caches.open(MAPS_CACHE);
+  const hit = await cache.match(`./maps/${routeId}.png`);
+  return !!hit;
+}
+
+async function renderCatalogue(){
+  regionsEl.innerHTML = "";
+  for (const r of DATA){
+    const regionDiv = document.createElement("div");
+    regionDiv.className = "region";
+    const totalRoutes = r.rivers.reduce((a,riv)=>a+riv.routes.length,0);
+    regionDiv.innerHTML = `
+      <button class="region-head">
+        <span>${r.region}</span>
+        <span style="display:flex;align-items:center;">
+          <span class="count">${totalRoutes} parcours</span>
+          <span class="chevron">›</span>
+        </span>
+      </button>
+      <div class="region-body"></div>
+    `;
+    const body = regionDiv.querySelector(".region-body");
+    for (const riv of r.rivers){
+      const riverDiv = document.createElement("div");
+      riverDiv.className = "river";
+      riverDiv.innerHTML = `<div class="river-name">${riv.river}</div>`;
+      for (const rt of riv.routes){
+        const card = document.createElement("div");
+        card.className = "route-card";
+        const done = await isDownloaded(rt.id);
+        card.innerHTML = `
+          <div class="route-thumb" style="background-image:url('map-${rt.id}.png')"></div>
+          <div class="route-info">
+            <div class="name">${rt.name}</div>
+            <div class="meta">${niveauMeta(rt)}</div>
+          </div>
+          <button class="dl-btn ${done?'done':''}" data-id="${rt.id}">${done?'✓ Téléchargée':'Télécharger'}</button>
+        `;
+        riverDiv.appendChild(card);
+      }
+      body.appendChild(riverDiv);
+    }
+    regionDiv.querySelector(".region-head").addEventListener("click", ()=>{
+      regionDiv.classList.toggle("open");
+    });
+    regionsEl.appendChild(regionDiv);
+  }
+
+  regionsEl.querySelectorAll(".dl-btn").forEach(btn=>{
+    btn.addEventListener("click", (e)=> downloadRoute(e.currentTarget));
+  });
+
+  updateDlCount();
+
+  // remplir le select de commentaires
+  commentRouteSelect.innerHTML = allRoutes()
+    .map(rt => `<option value="${rt.id}">${rt.river} — ${rt.name}</option>`).join("");
+}
+
+async function downloadRoute(btn){
+  const id = btn.dataset.id;
+  if (btn.classList.contains("done")) {
+    selectRouteOnMap(id);
+    switchScreen("carte");
+    return;
+  }
+  btn.classList.add("loading");
+  btn.textContent = "Téléchargement…";
+  try {
+    const cache = await caches.open(MAPS_CACHE);
+    const resp = await fetch(`map-${id}.png`);
+    await cache.put(`./maps/${id}.png`, resp.clone());
+    btn.classList.remove("loading");
+    btn.classList.add("done");
+    btn.textContent = "✓ Téléchargée";
+    showToast("Carte enregistrée pour usage hors ligne");
+    updateDlCount();
+  } catch(err){
+    btn.classList.remove("loading");
+    btn.textContent = "Erreur — réessayer";
+  }
+}
+
+async function updateDlCount(){
+  const cache = await caches.open(MAPS_CACHE);
+  const keys = await cache.keys();
+  document.getElementById("dl-count").textContent =
+    `${keys.length} carte${keys.length>1?'s':''} téléchargée${keys.length>1?'s':''}`;
+}
+
+/* ---------- Écran Carte ---------- */
+const mapFrame = document.getElementById("map-frame");
+const gpsBtn = document.getElementById("gps-btn");
+const coordsEl = document.getElementById("coords");
+
+async function selectRouteOnMap(routeId){
+  selectedRouteForMap = routeId;
+  const cache = await caches.open(MAPS_CACHE);
+  const hit = await cache.match(`./maps/${routeId}.png`);
+  if (hit){
+    const blob = await hit.blob();
+    const url = URL.createObjectURL(blob);
+    mapFrame.innerHTML = `<img src="${url}" alt="Carte hors ligne"><div class="gps-dot" id="gps-dot" style="left:50%; top:50%; display:none;"></div>`;
+    gpsBtn.disabled = false;
+  }
+}
+
+document.querySelectorAll(".seg").forEach(seg=>{
+  seg.addEventListener("click", ()=>{
+    document.querySelectorAll(".seg").forEach(s=>s.classList.remove("active"));
+    seg.classList.add("active");
+    mapMode = seg.dataset.mode;
+    if (mapMode === "online"){
+      mapFrame.innerHTML = `<div class="empty">Mode en ligne : chargerait les tuiles OpenStreetMap en direct (nécessite une connexion). Reviens en mode hors ligne pour voir la démo de carte téléchargée.</div>`;
+    } else if (selectedRouteForMap){
+      selectRouteOnMap(selectedRouteForMap);
+    } else {
+      mapFrame.innerHTML = `<div class="empty">Télécharge une carte dans le Catalogue, puis sélectionne-la ici.</div>`;
+    }
+  });
+});
+
+gpsBtn.addEventListener("click", ()=>{
+  if (watchId || simInterval){
+    stopTracking();
+    return;
+  }
+  startTracking();
+});
+
+function startTracking(){
+  gpsBtn.textContent = "Arrêter le suivi";
+  const dot = document.getElementById("gps-dot");
+  if (dot) dot.style.display = "block";
+
+  if ("geolocation" in navigator){
+    watchId = navigator.geolocation.watchPosition(
+      pos => {
+        coordsEl.textContent = `${pos.coords.latitude.toFixed(5)}, ${pos.coords.longitude.toFixed(5)} · ±${Math.round(pos.coords.accuracy)} m`;
+        // position réelle non projetée sur la carte de démo : on anime le point en simulation visuelle
+      },
+      err => {
+        coordsEl.textContent = "Position indisponible — simulation activée";
+        startSimulatedDot();
+      },
+      { enableHighAccuracy:true }
+    );
+    startSimulatedDot(); // anime toujours le point sur la carte de démo
+  } else {
+    coordsEl.textContent = "Géolocalisation non supportée — simulation";
+    startSimulatedDot();
+  }
+}
+
+function startSimulatedDot(){
+  const dot = document.getElementById("gps-dot");
+  if (!dot) return;
+  let t = 0;
+  simInterval = setInterval(()=>{
+    t += 0.12;
+    const x = 20 + (Math.sin(t)*0.5+0.5)*60;
+    const y = 35 + Math.sin(t*1.7)*18;
+    dot.style.left = x+"%";
+    dot.style.top = y+"%";
+  }, 500);
+}
+
+function stopTracking(){
+  gpsBtn.textContent = "Activer la géolocalisation";
+  if (watchId){ navigator.geolocation.clearWatch(watchId); watchId = null; }
+  if (simInterval){ clearInterval(simInterval); simInterval = null; }
+  coordsEl.textContent = "suivi arrêté";
+}
+
+/* ---------- Communauté (démo locale, à brancher sur un backend) ---------- */
+const commentsEl = document.getElementById("comments");
+const SEED_COMMENTS = [
+  { who:"M. Tremblay", routeId:"riviere-rouge-1", text:"Beau niveau d'eau ce week-end, mise à l'eau facile près du pont." },
+  { who:"K. Bouchard", routeId:"moisie-1", text:"Attention à la section rapide après le 8e km, portage recommandé." },
+];
+
+function loadComments(){
+  const stored = JSON.parse(localStorage.getItem("rb-comments") || "null");
+  return stored || SEED_COMMENTS;
+}
+function saveComments(list){
+  localStorage.setItem("rb-comments", JSON.stringify(list));
+}
+
+function renderComments(){
+  const list = loadComments();
+  const routesById = Object.fromEntries(allRoutes().map(r=>[r.id, r]));
+  commentsEl.innerHTML = list.slice().reverse().map(c=>{
+    const rt = routesById[c.routeId];
+    return `<div class="comment">
+      <span class="who">${c.who}</span><span class="route-tag">${rt ? rt.river : c.routeId}</span>
+      <p>${c.text}</p>
+    </div>`;
+  }).join("");
+}
+
+document.getElementById("comment-submit").addEventListener("click", ()=>{
+  const text = document.getElementById("comment-text").value.trim();
+  if (!text) return;
+  const list = loadComments();
+  list.push({ who:"Toi", routeId: commentRouteSelect.value, text });
+  saveComments(list);
+  document.getElementById("comment-text").value = "";
+  renderComments();
+  showToast("Commentaire publié");
+});
+
+/* ---------- Navigation ---------- */
+function switchScreen(name){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.getElementById(`screen-${name}`).classList.add("active");
+  document.querySelectorAll(".nav-btn").forEach(b=>b.classList.toggle("active", b.dataset.screen===name));
+}
+document.querySelectorAll(".nav-btn").forEach(btn=>{
+  btn.addEventListener("click", ()=> switchScreen(btn.dataset.screen));
+});
+
+/* ---------- Statut réseau ---------- */
+function updateNetStatus(){
+  const online = navigator.onLine;
+  document.getElementById("net-dot").classList.toggle("off", !online);
+  document.getElementById("net-label").textContent = online ? "En ligne" : "Hors ligne";
+}
+window.addEventListener("online", updateNetStatus);
+window.addEventListener("offline", updateNetStatus);
+
+/* ---------- Toast ---------- */
+let toastTimer;
+function showToast(msg){
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=> t.classList.remove("show"), 2200);
+}
+
+/* ---------- Installation PWA ---------- */
+let deferredPrompt;
+window.addEventListener("beforeinstallprompt", (e)=>{
+  e.preventDefault();
+  deferredPrompt = e;
+  document.getElementById("install-btn").style.display = "flex";
+});
+document.getElementById("install-btn").addEventListener("click", async ()=>{
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  document.getElementById("install-btn").style.display = "none";
+});
+
+/* ---------- Service worker ---------- */
+if ("serviceWorker" in navigator){
+  window.addEventListener("load", ()=>{
+    navigator.serviceWorker.register("./service-worker.js").catch(console.error);
+  });
+}
+
+/* ---------- Init ---------- */
+updateNetStatus();
+renderCatalogue().then(()=>{
+  // ouvre la première région par défaut
+  const first = document.querySelector(".region");
+  if (first) first.classList.add("open");
+});
+renderComments();
+</script>
+</body>
+</html>

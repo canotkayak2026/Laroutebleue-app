@@ -1,0 +1,25 @@
+{
+  "name": "Route Bleue — Cartes hors ligne",
+  "short_name": "Route Bleue",
+  "description": "Catalogue de cartes de pagaie du Québec, téléchargeables pour usage hors ligne, avec géolocalisation en temps réel.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#F2F8FC",
+  "theme_color": "#002569",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
