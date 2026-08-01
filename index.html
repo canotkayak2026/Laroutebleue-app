@@ -509,16 +509,33 @@
   <div class="toast" id="toast"></div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.9.2/proj4.js"></script>
 <script>
 /* ---------------------------------------------------------
    Données synthétiques (démo) — à remplacer par le catalogue
    réel de CKQ (ArcGIS Online / API) en production.
 --------------------------------------------------------- */
+const GEO_DATA = {
+  "lachute-1": {
+    crs_proj4: "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +datum=NAD83 +units=m +no_defs +type=crs",
+    transform: [1.3748180781439525, -0.7937515875031746, 463042.82274510904, -0.7937515875031746, -1.3748180781439525, 198920.7858914051],
+    orig_width: 3400,
+    orig_height: 4400,
+    content_height: 1600,
+    header_height: 112,
+    total_width: 1236,
+    total_height: 1712
+  }
+};
+
 const DATA = [
   { region:"Laurentides", rivers:[
     { river:"Rivière Rouge", routes:[
       { id:"riviere-rouge-1", name:"Secteur A — Amont", km:12, niveau:"Intermédiaire" },
       { id:"riviere-rouge-2", name:"Secteur B — Chutes", km:8, niveau:"Avancé" },
+    ]},
+    { river:"Rivière du Nord", routes:[
+      { id:"lachute-1", name:"Lachute — carte réelle géoréférencée", km:6, niveau:"Débutant" },
     ]}
   ]},
   { region:"Baie-James / Jamésie", rivers:[
@@ -657,6 +674,22 @@ const mapFrame = document.getElementById("map-frame");
 const gpsBtn = document.getElementById("gps-btn");
 const coordsEl = document.getElementById("coords");
 
+/* Projette une position GPS (WGS84 lat/lon) vers un pourcentage x/y
+   sur l'image de la carte, à partir de la transformation affine du
+   GeoTIFF source (voir GEO_DATA). Gère correctement la rotation —
+   contrairement à une simple bounding box, ça reste précis même si
+   l'image n'est pas alignée nord-sud. */
+function projectLatLonToPercent(lat, lon, geo){
+  const [x, y] = proj4("WGS84", geo.crs_proj4, [lon, lat]);
+  const [a, b, c, d, e, f] = geo.transform;
+  const det = a*e - b*d;
+  const col = (e*(x - c) - b*(y - f)) / det;
+  const row = (a*(y - f) - d*(x - c)) / det;
+  const px = (col / geo.orig_width) * 100;
+  const py = ((geo.header_height + (row / geo.orig_height) * geo.content_height) / geo.total_height) * 100;
+  return { x: px, y: py, inBounds: px >= 0 && px <= 100 && py >= 0 && py <= 100 };
+}
+
 async function selectRouteOnMap(routeId){
   selectedRouteForMap = routeId;
   const cache = await caches.open(MAPS_CACHE);
@@ -664,7 +697,11 @@ async function selectRouteOnMap(routeId){
   if (hit){
     const blob = await hit.blob();
     const url = URL.createObjectURL(blob);
-    mapFrame.innerHTML = `<img src="${url}" alt="Carte hors ligne"><div class="gps-dot" id="gps-dot" style="left:50%; top:50%; display:none;"></div>`;
+    const geo = GEO_DATA[routeId];
+    const badge = geo
+      ? `<div style="position:absolute; top:8px; left:8px; background:rgba(0,158,194,0.92); color:#fff; font-size:10.5px; font-weight:700; padding:4px 9px; border-radius:999px; letter-spacing:0.03em;">📍 Géoréférencée — position GPS réelle</div>`
+      : "";
+    mapFrame.innerHTML = `<img src="${url}" alt="Carte hors ligne">${badge}<div class="gps-dot" id="gps-dot" style="left:50%; top:50%; display:none;"></div>`;
     gpsBtn.disabled = false;
   }
 }
@@ -697,22 +734,38 @@ function startTracking(){
   const dot = document.getElementById("gps-dot");
   if (dot) dot.style.display = "block";
 
+  const geo = GEO_DATA[selectedRouteForMap];
+
   if ("geolocation" in navigator){
     watchId = navigator.geolocation.watchPosition(
       pos => {
-        coordsEl.textContent = `${pos.coords.latitude.toFixed(5)}, ${pos.coords.longitude.toFixed(5)} · ±${Math.round(pos.coords.accuracy)} m`;
-        // position réelle non projetée sur la carte de démo : on anime le point en simulation visuelle
+        const { latitude, longitude, accuracy } = pos.coords;
+        coordsEl.textContent = `${latitude.toFixed(5)}, ${longitude.toFixed(5)} · ±${Math.round(accuracy)} m`;
+
+        if (geo && dot){
+          // Carte réellement géoréférencée : on projette la vraie position.
+          const { x, y, inBounds } = projectLatLonToPercent(latitude, longitude, geo);
+          dot.style.left = x + "%";
+          dot.style.top = y + "%";
+          dot.style.display = "block";
+          if (!inBounds){
+            coordsEl.textContent += " · hors de la zone couverte par cette carte";
+          }
+        } else if (dot){
+          // Carte de démo sans géoréférencement réel : simulation visuelle.
+          if (!simInterval) startSimulatedDot();
+        }
       },
       err => {
         coordsEl.textContent = "Position indisponible — simulation activée";
-        startSimulatedDot();
+        if (!geo) startSimulatedDot();
       },
       { enableHighAccuracy:true }
     );
-    startSimulatedDot(); // anime toujours le point sur la carte de démo
+    if (!geo) startSimulatedDot(); // anime le point sur les cartes de démo non géoréférencées
   } else {
     coordsEl.textContent = "Géolocalisation non supportée — simulation";
-    startSimulatedDot();
+    if (!geo) startSimulatedDot();
   }
 }
 
