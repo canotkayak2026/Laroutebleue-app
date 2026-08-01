@@ -1,69 +1,313 @@
 {
   "regions": [
     {
-      "region": "Laurentides",
-      "rivers": [
-        {
-          "river": "Rivière Rouge",
-          "routes": [
-            { "id": "riviere-rouge-1", "name": "Secteur A — Amont", "km": 12, "niveau": "Intermédiaire" },
-            { "id": "riviere-rouge-2", "name": "Secteur B — Chutes", "km": 8, "niveau": "Avancé" }
-          ]
-        },
-        {
-          "river": "Rivière du Nord",
-          "routes": [
-            { "id": "lachute-1", "name": "Lachute — carte réelle géoréférencée", "km": 6, "niveau": "Débutant" }
-          ]
-        }
-      ]
-    },
-    {
-      "region": "Baie-James / Jamésie",
-      "rivers": [
-        {
-          "river": "Rivière Broadback",
-          "routes": [
-            { "id": "broadback-1", "name": "Section amont", "km": 34, "niveau": "Expédition" }
-          ]
-        }
-      ]
-    },
-    {
-      "region": "Côte-Nord",
-      "rivers": [
-        {
-          "river": "Rivière Moisie",
-          "routes": [
-            { "id": "moisie-1", "name": "Section 1 — Mise à l'eau", "km": 21, "niveau": "Avancé" }
-          ]
-        },
-        {
-          "river": "Rivière aux Rats",
-          "routes": [
-            { "id": "aux-rats-1", "name": "Boucle principale", "km": 15, "niveau": "Intermédiaire" }
-          ]
-        }
-      ]
-    },
-    {
       "region": "Saguenay–Lac-Saint-Jean",
       "rivers": [
         {
-          "river": "Rivière Kenogami",
+          "river": "Rivière Mistassini",
           "routes": [
-            { "id": "kenogami-1", "name": "Section familiale", "km": 9, "niveau": "Débutant" }
+            {
+              "id": "les-mistassins-3",
+              "name": "Les Mistassins 3",
+              "km": 12.9,
+              "niveau": "Débutant"
+            },
+            {
+              "id": "les-mistassins-4",
+              "name": "Les Mistassins 4",
+              "km": 13.3,
+              "niveau": "Débutant"
+            },
+            {
+              "id": "les-mistassins-5",
+              "name": "Les Mistassins 5",
+              "km": 5.6,
+              "niveau": "Débutant"
+            },
+            {
+              "id": "les-mistassins-6",
+              "name": "Les Mistassins 6",
+              "km": 18.3,
+              "niveau": "Débutant"
+            },
+            {
+              "id": "les-mistassins-1",
+              "name": "Les Mistassins 1",
+              "km": 14.1,
+              "niveau": "Débutant"
+            },
+            {
+              "id": "les-mistassins-2",
+              "name": "Les Mistassins 2",
+              "km": 17.6,
+              "niveau": "Débutant"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "region": "Laurentides",
+      "rivers": [
+        {
+          "river": "Rivière du Nord",
+          "routes": [
+            {
+              "id": "prevost-st-jerome-vf-2",
+              "name": "Prévost-St-Jérôme",
+              "km": 5.4,
+              "niveau": "Débutant"
+            },
+            {
+              "id": "st-adele-prevost-vf-2",
+              "name": "St-Adèle-Prévost",
+              "km": 9,
+              "niveau": "Débutant"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "region": "Bas-Saint-Laurent",
+      "rivers": [
+        {
+          "river": "Lac Matapédia",
+          "routes": [
+            {
+              "id": "boucle-de-la-grande-ile",
+              "name": "Boucle de la Grande île",
+              "km": 10,
+              "niveau": "Intermédiaire"
+            },
+            {
+              "id": "l-anse-st-jean",
+              "name": "L'Anse St-Jean",
+              "km": 6.8,
+              "niveau": "Débutant"
+            }
+          ]
+        },
+        {
+          "river": "Fleuve Saint-Laurent (Estuaire moyen)",
+          "routes": [
+            {
+              "id": "est-trois-pistoles",
+              "name": "Trois-Pistoles Est",
+              "km": 11,
+              "niveau": "Intermédiaire"
+            },
+            {
+              "id": "ouest-trois-pistoles",
+              "name": "Trois-Pistoles Ouest",
+              "km": 10,
+              "niveau": "Intermédiaire"
+            }
           ]
         }
       ]
     }
   ],
   "geo": {
-    "lachute-1": {
-      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +datum=NAD83 +units=m +no_defs +type=crs",
-      "transform": [1.3748180781439525, -0.7937515875031746, 463042.82274510904, -0.7937515875031746, -1.3748180781439525, 198920.7858914051],
+    "les-mistassins-3": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        5.08001016002032,
+        0,
+        598291.0545776761,
+        0,
+        -5.08001016002032,
+        622349.4797240099
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 112,
+      "total_width": 1236,
+      "total_height": 1712
+    },
+    "les-mistassins-4": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        5.08001016002032,
+        0,
+        599145.0177655817,
+        0,
+        -5.08001016002032,
+        610023.2443497194
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 112,
+      "total_width": 1236,
+      "total_height": 1712
+    },
+    "les-mistassins-5": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        4.1573906248594605,
+        0.7983019404343608,
+        600719.031265025,
+        0.7983019404343608,
+        -4.1573906248594605,
+        597778.063385534
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 112,
+      "total_width": 1236,
+      "total_height": 1712
+    },
+    "les-mistassins-6": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        5.899469311406288,
+        -0.5672566645582934,
+        601206.7332123733,
+        -0.5672566645582934,
+        -5.899469311406288,
+        591996.2688313246
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 112,
+      "total_width": 1236,
+      "total_height": 1712
+    },
+    "prevost-st-jerome-vf-2": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.032004064008143,
+        0,
+        480961.4564580469,
+        0,
+        -2.032004064008143,
+        216656.88947006542
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 112,
+      "total_width": 1236,
+      "total_height": 1712
+    },
+    "st-adele-prevost-vf-2": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.8575057150114302,
+        0,
+        475419.82259760913,
+        0,
+        -2.8575057150114302,
+        225293.93184742235
+      ],
       "orig_width": 3400,
       "orig_height": 4400,
+      "content_height": 1600,
+      "header_height": 112,
+      "total_width": 1236,
+      "total_height": 1712
+    },
+    "boucle-de-la-grande-ile": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        1.4368438530587553,
+        -1.4368438530587553,
+        983389.5424529709,
+        -1.4368438530587553,
+        -1.4368438530587553,
+        511316.01220862655
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 112,
+      "total_width": 1236,
+      "total_height": 1712
+    },
+    "l-anse-st-jean": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        1.2700025400050434,
+        0,
+        985719.5038757643,
+        0,
+        -1.2700025400050434,
+        505140.7024555685
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 112,
+      "total_width": 1236,
+      "total_height": 1712
+    },
+    "est-trois-pistoles": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.032004064008106,
+        0,
+        859976.6645966155,
+        0,
+        -2.032004064008106,
+        464021.5221609514
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 112,
+      "total_width": 1236,
+      "total_height": 1712
+    },
+    "ouest-trois-pistoles": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        1.6933367200068459,
+        0,
+        857316.6426095414,
+        0,
+        -1.693336720006755,
+        460473.8229521558
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 112,
+      "total_width": 1236,
+      "total_height": 1712
+    },
+    "les-mistassins-1": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        4.943140563045817,
+        -1.1712662378301337,
+        598282.9095486633,
+        -1.1712662378301337,
+        -4.943140563045817,
+        650234.0073570375
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 112,
+      "total_width": 1236,
+      "total_height": 1712
+    },
+    "les-mistassins-2": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        5.08001016002032,
+        0,
+        596931.6530249694,
+        0,
+        -5.08001016002032,
+        635966.6321789343
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
       "content_height": 1600,
       "header_height": 112,
       "total_width": 1236,
