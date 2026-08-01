@@ -235,34 +235,33 @@
   .dl-btn.loading{ opacity:0.6; }
 
   /* Carte screen */
-  .map-toolbar{
-    display:flex;
-    gap:8px;
-    margin-bottom:12px;
-  }
-  .seg{
-    flex:1;
-    text-align:center;
-    padding:9px 8px;
-    border-radius:10px;
-    border:1px solid var(--line);
-    background:#fff;
-    font-size:12.5px;
-    font-weight:600;
-    color:var(--ink-soft);
-    cursor:pointer;
-  }
-  .seg.active{ background:var(--teal-dark); color:#fff; border-color:var(--teal-dark); }
 
   .map-frame{
     border:1px solid var(--line);
     border-radius:var(--radius);
     overflow:hidden;
-    background:#fff;
+    background:#0A1826;
     position:relative;
     height:340px;
+    touch-action:none;
   }
-  .map-frame img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .map-frame.fullscreen{
+    position:fixed;
+    inset:0;
+    z-index:300;
+    height:100vh;
+    height:100dvh;
+    border-radius:0;
+    border:none;
+  }
+  .map-transform-layer{
+    position:absolute;
+    top:0; left:0;
+    width:100%; height:100%;
+    transform-origin:0 0;
+    will-change:transform;
+  }
+  .map-transform-layer img{ width:100%; height:100%; object-fit:cover; display:block; pointer-events:none; user-select:none; }
   .map-frame .empty{
     height:100%;
     display:flex;
@@ -272,7 +271,8 @@
     gap:8px;
     padding:30px;
     text-align:center;
-    color:var(--ink-soft);
+    color:#fff;
+    opacity:0.8;
     font-size:13px;
   }
   .gps-dot{
@@ -285,6 +285,83 @@
     box-shadow:0 0 0 6px rgba(92,212,237,0.35);
     transition:left .5s linear, top .5s linear;
   }
+
+  /* Contrôles flottants type Avenza */
+  .map-controls{
+    position:absolute;
+    right:10px; bottom:10px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    z-index:5;
+  }
+  .map-controls button{
+    width:42px; height:42px;
+    border-radius:10px;
+    border:none;
+    background:rgba(13,30,48,0.82);
+    color:#fff;
+    font-size:18px;
+    font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    backdrop-filter:blur(3px);
+  }
+  .map-controls button:active{ transform:scale(0.94); }
+  .map-controls .recenter{ font-size:16px; }
+
+  .map-top-bar{
+    position:absolute;
+    top:10px; left:10px; right:10px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    z-index:5;
+    pointer-events:none;
+  }
+  .map-top-bar > *{ pointer-events:auto; }
+  .map-exit-btn{
+    width:38px; height:38px;
+    border-radius:10px;
+    border:none;
+    background:rgba(13,30,48,0.82);
+    color:#fff;
+    font-size:16px;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+  }
+  .map-badge-floating{
+    background:rgba(0,158,194,0.92);
+    color:#fff;
+    font-size:10.5px;
+    font-weight:700;
+    padding:6px 11px;
+    border-radius:999px;
+    letter-spacing:0.02em;
+  }
+  .map-fs-toggle{
+    background:#fff;
+    border:1.5px solid var(--teal-dark);
+    color:var(--teal-dark);
+    font-weight:700;
+    font-size:11.5px;
+    padding:7px 13px;
+    border-radius:999px;
+    cursor:pointer;
+    display:flex; align-items:center; gap:5px;
+  }
+
+  body.map-fullscreen-active header.top,
+  body.map-fullscreen-active .status-strip,
+  body.map-fullscreen-active nav.bottom,
+  body.map-fullscreen-active .screen-title,
+  body.map-fullscreen-active .coords,
+  body.map-fullscreen-active .gps-btn,
+  body.map-fullscreen-active main{
+    display:none !important;
+  }
+  body.map-fullscreen-active #app{ padding-bottom:0; }
+
   .coords{
     font-family:var(--font-mono);
     font-size:11.5px;
@@ -465,14 +542,13 @@
     <!-- CARTE -->
     <section class="screen" id="screen-carte">
       <h2 class="screen-title">Carte &amp; position</h2>
-      <div class="map-toolbar">
-        <div class="seg active" data-mode="offline">Mode hors ligne</div>
-        <div class="seg" data-mode="online">Mode en ligne (OSM)</div>
-      </div>
       <div class="map-frame" id="map-frame">
         <div class="empty">
           Télécharge une carte dans le Catalogue,<br>puis sélectionne-la ici pour la consulter hors ligne.
         </div>
+      </div>
+      <div style="text-align:center; margin-top:8px;">
+        <button class="map-fs-toggle" id="fs-toggle" disabled>⛶ Plein écran</button>
       </div>
       <div class="coords" id="coords">position — en attente</div>
       <button class="gps-btn" id="gps-btn" disabled>Activer la géolocalisation</button>
@@ -578,7 +654,6 @@ async function loadCatalog(){
 
 const MAPS_CACHE = "rb-maps-v1";
 let selectedRouteForMap = null;
-let mapMode = "offline";
 let watchId = null;
 let simInterval = null;
 
@@ -691,6 +766,7 @@ async function updateDlCount(){
 const mapFrame = document.getElementById("map-frame");
 const gpsBtn = document.getElementById("gps-btn");
 const coordsEl = document.getElementById("coords");
+const fsToggleBtn = document.getElementById("fs-toggle");
 
 /* Projette une position GPS (WGS84 lat/lon) vers un pourcentage x/y
    sur l'image de la carte, à partir de la transformation affine du
@@ -708,6 +784,172 @@ function projectLatLonToPercent(lat, lon, geo){
   return { x: px, y: py, inBounds: px >= 0 && px <= 100 && py >= 0 && py <= 100 };
 }
 
+/* ---- Vue pan/zoom (façon Avenza) ---------------------------------- */
+let viewScale = 1, viewX = 0, viewY = 0;
+const VIEW_MIN = 1, VIEW_MAX = 6;
+let isFullscreen = false;
+let lastDotPercent = { x: 50, y: 50 };
+const activePointers = new Map();
+let pinchStartDist = null, pinchStartScale = 1;
+let panStart = null;
+
+function applyTransform(animate){
+  const layer = document.getElementById("map-transform-layer");
+  if (!layer) return;
+  layer.style.transition = animate ? "transform .35s ease" : "none";
+  layer.style.transform = `translate(${viewX}px, ${viewY}px) scale(${viewScale})`;
+}
+
+function clampPan(){
+  if (!mapFrame) return;
+  const rect = mapFrame.getBoundingClientRect();
+  const maxX = 0, minX = rect.width - rect.width * viewScale;
+  const maxY = 0, minY = rect.height - rect.height * viewScale;
+  viewX = Math.min(maxX, Math.max(minX, viewX));
+  viewY = Math.min(maxY, Math.max(minY, viewY));
+}
+
+function resetView(animate){
+  viewScale = 1; viewX = 0; viewY = 0;
+  applyTransform(animate);
+}
+
+function zoomBy(factor, centerX, centerY){
+  const rect = mapFrame.getBoundingClientRect();
+  const cx = centerX !== undefined ? centerX - rect.left : rect.width / 2;
+  const cy = centerY !== undefined ? centerY - rect.top : rect.height / 2;
+  const newScale = Math.min(VIEW_MAX, Math.max(VIEW_MIN, viewScale * factor));
+  const ratio = newScale / viewScale;
+  viewX = cx - (cx - viewX) * ratio;
+  viewY = cy - (cy - viewY) * ratio;
+  viewScale = newScale;
+  clampPan();
+  applyTransform(true);
+}
+
+function recenterOnGPS(){
+  const rect = mapFrame.getBoundingClientRect();
+  const targetScale = 2.5;
+  const px = (lastDotPercent.x / 100) * rect.width;
+  const py = (lastDotPercent.y / 100) * rect.height;
+  viewScale = targetScale;
+  viewX = rect.width / 2 - px * targetScale;
+  viewY = rect.height / 2 - py * targetScale;
+  clampPan();
+  applyTransform(true);
+}
+
+function setupMapGestures(){
+  if (!mapFrame) return;
+  mapFrame.addEventListener("pointerdown", (e)=>{
+    if (e.target.closest(".map-controls, .map-top-bar")) return;
+    mapFrame.setPointerCapture(e.pointerId);
+    activePointers.set(e.pointerId, { x:e.clientX, y:e.clientY });
+    if (activePointers.size === 1){
+      panStart = { x:e.clientX, y:e.clientY, viewX, viewY };
+    } else if (activePointers.size === 2){
+      const pts = [...activePointers.values()];
+      pinchStartDist = Math.hypot(pts[0].x-pts[1].x, pts[0].y-pts[1].y);
+      pinchStartScale = viewScale;
+    }
+  });
+  mapFrame.addEventListener("pointermove", (e)=>{
+    if (!activePointers.has(e.pointerId)) return;
+    activePointers.set(e.pointerId, { x:e.clientX, y:e.clientY });
+    if (activePointers.size === 1 && panStart){
+      viewX = panStart.viewX + (e.clientX - panStart.x);
+      viewY = panStart.viewY + (e.clientY - panStart.y);
+      clampPan();
+      applyTransform(false);
+    } else if (activePointers.size === 2 && pinchStartDist){
+      const pts = [...activePointers.values()];
+      const dist = Math.hypot(pts[0].x-pts[1].x, pts[0].y-pts[1].y);
+      const factor = dist / pinchStartDist;
+      const midX = (pts[0].x + pts[1].x) / 2;
+      const midY = (pts[0].y + pts[1].y) / 2;
+      viewScale = Math.min(VIEW_MAX, Math.max(VIEW_MIN, pinchStartScale * factor));
+      const rect = mapFrame.getBoundingClientRect();
+      const cx = midX - rect.left, cy = midY - rect.top;
+      viewX = cx - (cx - viewX);
+      viewY = cy - (cy - viewY);
+      clampPan();
+      applyTransform(false);
+    }
+  });
+  const endPointer = (e)=>{
+    activePointers.delete(e.pointerId);
+    if (activePointers.size < 2) pinchStartDist = null;
+    if (activePointers.size === 0) panStart = null;
+  };
+  mapFrame.addEventListener("pointerup", endPointer);
+  mapFrame.addEventListener("pointercancel", endPointer);
+  mapFrame.addEventListener("pointerleave", endPointer);
+
+  // molette (desktop)
+  mapFrame.addEventListener("wheel", (e)=>{
+    e.preventDefault();
+    zoomBy(e.deltaY < 0 ? 1.15 : 1/1.15, e.clientX, e.clientY);
+  }, { passive:false });
+
+  // double-tap pour zoomer
+  let lastTap = 0;
+  mapFrame.addEventListener("pointerup", (e)=>{
+    const now = Date.now();
+    if (now - lastTap < 300 && activePointers.size === 0){
+      zoomBy(viewScale < 2.5 ? 1.8 : 1/1.8, e.clientX, e.clientY);
+    }
+    lastTap = now;
+  });
+}
+setupMapGestures();
+
+fsToggleBtn.addEventListener("click", ()=> setFullscreen(!isFullscreen));
+
+function setFullscreen(on){
+  isFullscreen = on;
+  mapFrame.classList.toggle("fullscreen", on);
+  document.body.classList.toggle("map-fullscreen-active", on);
+  fsToggleBtn.textContent = on ? "✕ Quitter le plein écran" : "⛶ Plein écran";
+  renderMapChrome();
+  resetView(false);
+}
+
+function renderMapChrome(){
+  const existingTop = mapFrame.querySelector(".map-top-bar");
+  const existingControls = mapFrame.querySelector(".map-controls");
+  if (existingTop) existingTop.remove();
+  if (existingControls) existingControls.remove();
+  if (!mapFrame.querySelector(".map-transform-layer")) return; // pas de carte chargée
+
+  const geo = GEO_DATA[selectedRouteForMap];
+  const topBar = document.createElement("div");
+  topBar.className = "map-top-bar";
+  topBar.innerHTML = `
+    ${isFullscreen ? `<button class="map-exit-btn" id="map-exit-btn">✕</button>` : `<span></span>`}
+    <span style="display:flex; gap:6px;">
+      ${geo ? `<span class="map-badge-floating">📍 Géoréférencée</span>` : ``}
+      <span class="map-badge-floating" id="map-net-badge" style="background:rgba(13,30,48,0.82);"></span>
+    </span>
+  `;
+  mapFrame.appendChild(topBar);
+  updateMapNetBadge();
+  if (isFullscreen){
+    document.getElementById("map-exit-btn").addEventListener("click", ()=> setFullscreen(false));
+  }
+
+  const controls = document.createElement("div");
+  controls.className = "map-controls";
+  controls.innerHTML = `
+    <button id="zoom-in" title="Zoomer">+</button>
+    <button id="zoom-out" title="Dézoomer">–</button>
+    <button class="recenter" id="recenter-btn" title="Recentrer sur ma position">⌖</button>
+  `;
+  mapFrame.appendChild(controls);
+  document.getElementById("zoom-in").addEventListener("click", ()=> zoomBy(1.4));
+  document.getElementById("zoom-out").addEventListener("click", ()=> zoomBy(1/1.4));
+  document.getElementById("recenter-btn").addEventListener("click", recenterOnGPS);
+}
+
 async function selectRouteOnMap(routeId){
   selectedRouteForMap = routeId;
   const cache = await caches.open(MAPS_CACHE);
@@ -715,29 +957,17 @@ async function selectRouteOnMap(routeId){
   if (hit){
     const blob = await hit.blob();
     const url = URL.createObjectURL(blob);
-    const geo = GEO_DATA[routeId];
-    const badge = geo
-      ? `<div style="position:absolute; top:8px; left:8px; background:rgba(0,158,194,0.92); color:#fff; font-size:10.5px; font-weight:700; padding:4px 9px; border-radius:999px; letter-spacing:0.03em;">📍 Géoréférencée — position GPS réelle</div>`
-      : "";
-    mapFrame.innerHTML = `<img src="${url}" alt="Carte hors ligne">${badge}<div class="gps-dot" id="gps-dot" style="left:50%; top:50%; display:none;"></div>`;
+    mapFrame.innerHTML = `
+      <div class="map-transform-layer" id="map-transform-layer">
+        <img src="${url}" alt="Carte hors ligne">
+        <div class="gps-dot" id="gps-dot" style="left:50%; top:50%; display:none;"></div>
+      </div>`;
+    resetView(false);
+    renderMapChrome();
     gpsBtn.disabled = false;
+    fsToggleBtn.disabled = false;
   }
 }
-
-document.querySelectorAll(".seg").forEach(seg=>{
-  seg.addEventListener("click", ()=>{
-    document.querySelectorAll(".seg").forEach(s=>s.classList.remove("active"));
-    seg.classList.add("active");
-    mapMode = seg.dataset.mode;
-    if (mapMode === "online"){
-      mapFrame.innerHTML = `<div class="empty">Mode en ligne : chargerait les tuiles OpenStreetMap en direct (nécessite une connexion). Reviens en mode hors ligne pour voir la démo de carte téléchargée.</div>`;
-    } else if (selectedRouteForMap){
-      selectRouteOnMap(selectedRouteForMap);
-    } else {
-      mapFrame.innerHTML = `<div class="empty">Télécharge une carte dans le Catalogue, puis sélectionne-la ici.</div>`;
-    }
-  });
-});
 
 gpsBtn.addEventListener("click", ()=>{
   if (watchId || simInterval){
@@ -766,6 +996,7 @@ function startTracking(){
           dot.style.left = x + "%";
           dot.style.top = y + "%";
           dot.style.display = "block";
+          lastDotPercent = { x, y };
           if (!inBounds){
             coordsEl.textContent += " · hors de la zone couverte par cette carte";
           }
@@ -797,6 +1028,7 @@ function startSimulatedDot(){
     const y = 35 + Math.sin(t*1.7)*18;
     dot.style.left = x+"%";
     dot.style.top = y+"%";
+    lastDotPercent = { x, y };
   }, 500);
 }
 
@@ -856,13 +1088,20 @@ document.querySelectorAll(".nav-btn").forEach(btn=>{
 });
 
 /* ---------- Statut réseau ---------- */
+function updateMapNetBadge(){
+  const badge = document.getElementById("map-net-badge");
+  if (!badge) return;
+  const online = navigator.onLine;
+  badge.textContent = online ? "🟢 En ligne" : "🔴 Hors ligne — carte locale";
+}
+
 function updateNetStatus(){
   const online = navigator.onLine;
   document.getElementById("net-dot").classList.toggle("off", !online);
   document.getElementById("net-label").textContent = online ? "En ligne" : "Hors ligne";
 }
-window.addEventListener("online", updateNetStatus);
-window.addEventListener("offline", updateNetStatus);
+window.addEventListener("online", ()=>{ updateNetStatus(); updateMapNetBadge(); });
+window.addEventListener("offline", ()=>{ updateNetStatus(); updateMapNetBadge(); });
 
 /* ---------- Toast ---------- */
 let toastTimer;
