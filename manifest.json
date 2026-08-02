@@ -1,6 +1,6 @@
 {
-  "name": "Route Bleue — Cartes hors ligne",
-  "short_name": "Route Bleue",
+  "name": "La route bleue — Cartes hors ligne",
+  "short_name": "La route bleue",
   "description": "Catalogue de cartes de pagaie du Québec, téléchargeables pour usage hors ligne, avec géolocalisation en temps réel.",
   "start_url": "./index.html",
   "scope": "./",
