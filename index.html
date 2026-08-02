@@ -819,38 +819,16 @@ let GEO_DATA = {
     orig_width: 3400,
     orig_height: 4400,
     content_height: 1600,
-    header_height: 112,
+    header_height: 0,
     total_width: 1236,
-    total_height: 1712
+    total_height: 1600
   }
 };
 
 let DATA = [
   { region:"Laurentides", rivers:[
-    { river:"Rivière Rouge", routes:[
-      { id:"riviere-rouge-1", name:"Secteur A — Amont", km:12, niveau:"Intermédiaire" },
-      { id:"riviere-rouge-2", name:"Secteur B — Chutes", km:8, niveau:"Avancé" },
-    ]},
     { river:"Rivière du Nord", routes:[
-      { id:"lachute-1", name:"Lachute — carte réelle géoréférencée", km:6, niveau:"Débutant" },
-    ]}
-  ]},
-  { region:"Baie-James / Jamésie", rivers:[
-    { river:"Rivière Broadback", routes:[
-      { id:"broadback-1", name:"Section amont", km:34, niveau:"Expédition" },
-    ]}
-  ]},
-  { region:"Côte-Nord", rivers:[
-    { river:"Rivière Moisie", routes:[
-      { id:"moisie-1", name:"Section 1 — Mise à l'eau", km:21, niveau:"Avancé" },
-    ]},
-    { river:"Rivière aux Rats", routes:[
-      { id:"aux-rats-1", name:"Boucle principale", km:15, niveau:"Intermédiaire" },
-    ]}
-  ]},
-  { region:"Saguenay–Lac-Saint-Jean", rivers:[
-    { river:"Rivière Kenogami", routes:[
-      { id:"kenogami-1", name:"Section familiale", km:9, niveau:"Débutant" },
+      { id:"lachute-1", name:"Lachute", km:6, niveau:"Débutant" },
     ]}
   ]}
 ];
@@ -1301,14 +1279,11 @@ function renderMapChrome(){
   if (existingCoords) existingCoords.remove();
   if (!mapFrame.querySelector(".map-transform-layer")) return; // pas de carte chargée
 
-  const geo = GEO_DATA[selectedRouteForMap];
-
   const topBar = document.createElement("div");
   topBar.className = "map-top-bar";
   topBar.innerHTML = `
     <button class="map-exit-btn" id="map-exit-btn">✕</button>
     <span style="display:flex; gap:6px;">
-      ${geo ? `<span class="map-badge-floating">📍 Géoréférencée</span>` : ``}
       <span class="map-badge-floating" id="map-net-badge" style="background:rgba(13,30,48,0.82);"></span>
     </span>
   `;
@@ -1465,10 +1440,7 @@ function stopTracking(){
 
 /* ---------- Communauté (démo locale, à brancher sur un backend) ---------- */
 const commentsEl = document.getElementById("comments");
-const SEED_COMMENTS = [
-  { who:"M. Tremblay", routeId:"riviere-rouge-1", text:"Beau niveau d'eau ce week-end, mise à l'eau facile près du pont." },
-  { who:"K. Bouchard", routeId:"moisie-1", text:"Attention à la section rapide après le 8e km, portage recommandé." },
-];
+const SEED_COMMENTS = [];
 
 function loadComments(){
   const stored = JSON.parse(localStorage.getItem("rb-comments") || "null");
