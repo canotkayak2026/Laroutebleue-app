@@ -234,6 +234,51 @@
   }
   .dl-btn.loading{ opacity:0.6; }
 
+  .search-bar{ margin-bottom:10px; }
+  .search-bar input{
+    width:100%;
+    padding:11px 14px;
+    border-radius:10px;
+    border:1px solid var(--line);
+    background:#fff;
+    font-family:var(--font-body);
+    font-size:13.5px;
+    color:var(--ink);
+  }
+  .search-bar input::placeholder{ color:var(--ink-soft); }
+  .filter-row{
+    display:flex;
+    gap:7px;
+    margin-bottom:8px;
+  }
+  .filter-row select{
+    flex:1;
+    min-width:0;
+    padding:9px 8px;
+    border-radius:9px;
+    border:1px solid var(--line);
+    background:#fff;
+    font-family:var(--font-body);
+    font-size:11.5px;
+    color:var(--ink);
+  }
+  .filter-summary{
+    font-size:11.5px;
+    color:var(--ink-soft);
+    margin-bottom:12px;
+    min-height:16px;
+  }
+  .filter-summary button{
+    background:none;
+    border:none;
+    color:var(--teal-dark);
+    font-weight:700;
+    font-size:11.5px;
+    cursor:pointer;
+    padding:0;
+    margin-left:6px;
+  }
+
   .sub-text{
     font-size:12.5px;
     color:var(--ink-soft);
@@ -292,11 +337,10 @@
   .map-transform-layer{
     position:absolute;
     top:0; left:0;
-    width:100%; height:100%;
     transform-origin:0 0;
     will-change:transform;
   }
-  .map-transform-layer img{ width:100%; height:100%; object-fit:cover; display:block; pointer-events:none; user-select:none; }
+  .map-transform-layer img{ display:block; pointer-events:none; user-select:none; }
   .map-frame .empty{
     height:100%;
     display:flex;
@@ -687,6 +731,26 @@
     <!-- CATALOGUE -->
     <section class="screen" id="screen-catalogue">
       <h2 class="screen-title">Catalogue par région</h2>
+      <div class="search-bar">
+        <input type="text" id="search-input" placeholder="Rechercher un parcours, une rivière…">
+      </div>
+      <div class="filter-row">
+        <select id="filter-region"><option value="">Toutes les régions</option></select>
+        <select id="filter-niveau">
+          <option value="">Tous les niveaux</option>
+          <option>Débutant</option>
+          <option>Intermédiaire</option>
+          <option>Avancé</option>
+          <option>Expédition</option>
+        </select>
+        <select id="filter-duree">
+          <option value="">Durée — toutes</option>
+          <option value="courte">Courte (&lt; 10 km)</option>
+          <option value="moyenne">Moyenne (10–25 km)</option>
+          <option value="longue">Longue (25 km +)</option>
+        </select>
+      </div>
+      <div class="filter-summary" id="filter-summary"></div>
       <div id="regions"></div>
     </section>
 
@@ -830,12 +894,64 @@ async function isDownloaded(routeId){
   return !!hit;
 }
 
+function getActiveFilters(){
+  return {
+    q: (document.getElementById("search-input")?.value || "").trim().toLowerCase(),
+    region: document.getElementById("filter-region")?.value || "",
+    niveau: document.getElementById("filter-niveau")?.value || "",
+    duree: document.getElementById("filter-duree")?.value || ""
+  };
+}
+
+function filtersActive(f){
+  return !!(f.q || f.region || f.niveau || f.duree);
+}
+
+function matchesFilters(rt, f){
+  if (f.region && rt.region !== f.region) return false;
+  if (f.niveau && rt.niveau !== f.niveau) return false;
+  if (f.duree){
+    const km = rt.km || 0;
+    if (f.duree === "courte" && !(km < 10)) return false;
+    if (f.duree === "moyenne" && !(km >= 10 && km <= 25)) return false;
+    if (f.duree === "longue" && !(km > 25)) return false;
+  }
+  if (f.q){
+    const hay = `${rt.name} ${rt.river} ${rt.region}`.toLowerCase();
+    if (!hay.includes(f.q)) return false;
+  }
+  return true;
+}
+
+function populateRegionFilter(){
+  const sel = document.getElementById("filter-region");
+  if (!sel) return;
+  const current = sel.value;
+  sel.innerHTML = `<option value="">Toutes les régions</option>` +
+    DATA.map(r => `<option ${r.region===current?"selected":""}>${r.region}</option>`).join("");
+}
+
 async function renderCatalogue(){
+  const f = getActiveFilters();
+  const active = filtersActive(f);
   regionsEl.innerHTML = "";
+
+  let totalMatches = 0;
+
   for (const r of DATA){
+    const riversWithMatches = r.rivers
+      .map(riv => ({ river: riv.river, routes: riv.routes.filter(rt => matchesFilters({...rt, region:r.region, river:riv.river}, f)) }))
+      .filter(riv => riv.routes.length > 0);
+
+    if (active && riversWithMatches.length === 0) continue; // région sans résultat : cachée pendant une recherche
+
+    const routesToShow = active ? riversWithMatches : r.rivers.map(riv => ({ river: riv.river, routes: riv.routes }));
+    totalMatches += riversWithMatches.reduce((a,riv)=>a+riv.routes.length,0);
+
     const regionDiv = document.createElement("div");
     regionDiv.className = "region";
     regionDiv.dataset.region = r.region;
+    if (active) regionDiv.classList.add("open"); // auto-ouvre pendant une recherche/filtre
     const totalRoutes = r.rivers.reduce((a,riv)=>a+riv.routes.length,0);
     regionDiv.innerHTML = `
       <button class="region-head">
@@ -848,7 +964,8 @@ async function renderCatalogue(){
       <div class="region-body"></div>
     `;
     const body = regionDiv.querySelector(".region-body");
-    for (const riv of r.rivers){
+    for (const riv of routesToShow){
+      if (riv.routes.length === 0) continue;
       const riverDiv = document.createElement("div");
       riverDiv.className = "river";
       riverDiv.innerHTML = `<div class="river-name">${riv.river}</div>`;
@@ -878,12 +995,38 @@ async function renderCatalogue(){
     btn.addEventListener("click", (e)=> downloadRoute(e.currentTarget));
   });
 
+  const summaryEl = document.getElementById("filter-summary");
+  if (summaryEl){
+    summaryEl.innerHTML = active
+      ? `${totalMatches} parcours trouvé${totalMatches>1?'s':''}<button id="clear-filters">Réinitialiser</button>`
+      : "";
+    const clearBtn = document.getElementById("clear-filters");
+    if (clearBtn) clearBtn.addEventListener("click", clearFilters);
+  }
+
   updateDlCount();
 
   // remplir le select de commentaires
   commentRouteSelect.innerHTML = allRoutes()
     .map(rt => `<option value="${rt.id}">${rt.river} — ${rt.name}</option>`).join("");
 }
+
+function clearFilters(){
+  document.getElementById("search-input").value = "";
+  document.getElementById("filter-region").value = "";
+  document.getElementById("filter-niveau").value = "";
+  document.getElementById("filter-duree").value = "";
+  renderCatalogue();
+}
+
+let searchDebounce;
+document.getElementById("search-input").addEventListener("input", ()=>{
+  clearTimeout(searchDebounce);
+  searchDebounce = setTimeout(renderCatalogue, 200);
+});
+["filter-region","filter-niveau","filter-duree"].forEach(id=>{
+  document.getElementById(id).addEventListener("change", ()=> renderCatalogue());
+});
 
 async function downloadRoute(btn){
   const id = btn.dataset.id;
@@ -984,7 +1127,9 @@ function projectLatLonToPercent(lat, lon, geo){
 
 /* ---- Vue pan/zoom (façon Avenza) ---------------------------------- */
 let viewScale = 1, viewX = 0, viewY = 0;
-const VIEW_MIN = 1, VIEW_MAX = 6;
+let fitScale = 1; // échelle "carte entière visible" — devient le zoom minimum
+let imgNaturalW = 0, imgNaturalH = 0;
+const VIEW_MAX = 6;
 let isFullscreen = false;
 let isTracking = false;
 let lastDotPercent = { x: 50, y: 50 };
@@ -999,17 +1144,39 @@ function applyTransform(animate){
   layer.style.transform = `translate(${viewX}px, ${viewY}px) scale(${viewScale})`;
 }
 
+/* Le calque .map-transform-layer est dimensionné à la taille NATURELLE de
+   l'image (pas étirée au cadre) — c'est ce qui permet au point GPS
+   (positionné en %) de toujours tomber au bon endroit, peu importe le
+   ratio du cadre. La "réduction" de la carte se fait via le zoom minimum
+   (fitScale), calculé pour que l'image entière rentre dans le cadre. */
+function computeFitScale(){
+  if (!mapFrame || !imgNaturalW || !imgNaturalH) return 1;
+  const rect = mapFrame.getBoundingClientRect();
+  return Math.min(rect.width / imgNaturalW, rect.height / imgNaturalH);
+}
+
 function clampPan(){
   if (!mapFrame) return;
   const rect = mapFrame.getBoundingClientRect();
-  const maxX = 0, minX = rect.width - rect.width * viewScale;
-  const maxY = 0, minY = rect.height - rect.height * viewScale;
-  viewX = Math.min(maxX, Math.max(minX, viewX));
-  viewY = Math.min(maxY, Math.max(minY, viewY));
+  const renderedW = imgNaturalW * viewScale;
+  const renderedH = imgNaturalH * viewScale;
+  if (renderedW <= rect.width){
+    viewX = (rect.width - renderedW) / 2; // image plus petite que le cadre : centrer
+  } else {
+    viewX = Math.min(0, Math.max(rect.width - renderedW, viewX));
+  }
+  if (renderedH <= rect.height){
+    viewY = (rect.height - renderedH) / 2;
+  } else {
+    viewY = Math.min(0, Math.max(rect.height - renderedH, viewY));
+  }
 }
 
 function resetView(animate){
-  viewScale = 1; viewX = 0; viewY = 0;
+  fitScale = computeFitScale();
+  viewScale = fitScale;
+  viewX = 0; viewY = 0;
+  clampPan();
   applyTransform(animate);
 }
 
@@ -1017,7 +1184,7 @@ function zoomBy(factor, centerX, centerY){
   const rect = mapFrame.getBoundingClientRect();
   const cx = centerX !== undefined ? centerX - rect.left : rect.width / 2;
   const cy = centerY !== undefined ? centerY - rect.top : rect.height / 2;
-  const newScale = Math.min(VIEW_MAX, Math.max(VIEW_MIN, viewScale * factor));
+  const newScale = Math.min(VIEW_MAX, Math.max(fitScale, viewScale * factor));
   const ratio = newScale / viewScale;
   viewX = cx - (cx - viewX) * ratio;
   viewY = cy - (cy - viewY) * ratio;
@@ -1028,9 +1195,9 @@ function zoomBy(factor, centerX, centerY){
 
 function recenterOnGPS(){
   const rect = mapFrame.getBoundingClientRect();
-  const targetScale = 2.5;
-  const px = (lastDotPercent.x / 100) * rect.width;
-  const py = (lastDotPercent.y / 100) * rect.height;
+  const targetScale = Math.max(fitScale * 1.8, Math.min(VIEW_MAX, 2.5));
+  const px = (lastDotPercent.x / 100) * imgNaturalW;
+  const py = (lastDotPercent.y / 100) * imgNaturalH;
   viewScale = targetScale;
   viewX = rect.width / 2 - px * targetScale;
   viewY = rect.height / 2 - py * targetScale;
@@ -1066,7 +1233,7 @@ function setupMapGestures(){
       const factor = dist / pinchStartDist;
       const midX = (pts[0].x + pts[1].x) / 2;
       const midY = (pts[0].y + pts[1].y) / 2;
-      const newScale = Math.min(VIEW_MAX, Math.max(VIEW_MIN, pinchStartScale * factor));
+      const newScale = Math.min(VIEW_MAX, Math.max(fitScale, pinchStartScale * factor));
       const ratio = newScale / viewScale;
       const rect = mapFrame.getBoundingClientRect();
       const cx = midX - rect.left, cy = midY - rect.top;
@@ -1180,13 +1347,30 @@ async function selectRouteOnMap(routeId){
     const url = URL.createObjectURL(blob);
     mapFrame.innerHTML = `
       <div class="map-transform-layer" id="map-transform-layer">
-        <img src="${url}" alt="Carte hors ligne">
+        <img src="${url}" alt="Carte hors ligne" id="map-img">
         <div class="gps-dot" id="gps-dot" style="left:50%; top:50%; display:none;"></div>
       </div>`;
-    resetView(false);
     setFullscreen(true); // ouvre directement en plein écran
+
+    const imgEl = document.getElementById("map-img");
+    const initFit = () => {
+      imgNaturalW = imgEl.naturalWidth;
+      imgNaturalH = imgEl.naturalHeight;
+      resetView(false); // calcule le zoom "carte entière visible" et centre
+    };
+    if (imgEl.complete && imgEl.naturalWidth){
+      initFit();
+    } else {
+      imgEl.addEventListener("load", initFit, { once:true });
+    }
   }
 }
+
+window.addEventListener("resize", ()=>{
+  if (imgNaturalW && mapFrame.querySelector(".map-transform-layer")){
+    resetView(false);
+  }
+});
 
 function startTracking(){
   isTracking = true;
@@ -1391,10 +1575,7 @@ if ("serviceWorker" in navigator){
 /* ---------- Init ---------- */
 updateNetStatus();
 switchScreen("accueil");
-loadCatalog().then(() => renderCatalogue()).then(()=>{
-  // ouvre la première région par défaut
-  const first = document.querySelector(".region");
-  if (first) first.classList.add("open");
+loadCatalog().then(() => { populateRegionFilter(); return renderCatalogue(); }).then(()=>{
   renderComments();
   updateHeroStats();
   renderDossier();
