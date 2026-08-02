@@ -386,9 +386,11 @@
     cursor:pointer;
     backdrop-filter:blur(3px);
   }
+  .map-controls button svg{ width:20px; height:20px; }
   .map-controls button:active{ transform:scale(0.94); }
-  .map-controls .recenter{ font-size:16px; }
   .map-controls button.active{ background:var(--accent); }
+  .map-controls .location-btn{ color:var(--accent-2); }
+  .map-controls .location-btn.active{ background:var(--success); color:#fff; }
 
   .map-coords-bar{
     position:absolute;
@@ -763,7 +765,6 @@
 
     <!-- CARTE -->
     <section class="screen" id="screen-carte">
-      <h2 class="screen-title">Carte &amp; position</h2>
       <div class="map-frame" id="map-frame">
         <div class="empty">
           Télécharge une carte dans le Catalogue,<br>puis sélectionne-la ici pour la consulter hors ligne.
@@ -1132,6 +1133,7 @@ let imgNaturalW = 0, imgNaturalH = 0;
 const VIEW_MAX = 6;
 let isFullscreen = false;
 let isTracking = false;
+let hasFirstFix = false;
 let lastDotPercent = { x: 50, y: 50 };
 const activePointers = new Map();
 let pinchStartDist = null, pinchStartScale = 1;
@@ -1285,6 +1287,7 @@ function setFullscreen(on){
   document.body.classList.toggle("map-fullscreen-active", on);
   renderMapChrome();
   if (!on){
+    if (isTracking) stopTracking();
     switchScreen("dossier");
   }
 }
@@ -1318,23 +1321,29 @@ function renderMapChrome(){
   controls.innerHTML = `
     <button id="zoom-in" title="Zoomer">+</button>
     <button id="zoom-out" title="Dézoomer">–</button>
-    <button class="recenter" id="recenter-btn" title="Recentrer sur ma position">⌖</button>
-    <button id="gps-toggle-btn" title="Activer/arrêter le suivi GPS">📍</button>
+    <button id="home-btn" title="Réinitialiser la vue">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5L12 4l9 7.5"/><path d="M5.5 10v9a1 1 0 001 1H9.5v-6h5v6H17.5a1 1 0 001-1v-9"/></svg>
+    </button>
+    <button class="location-btn" id="location-btn" title="Ma position">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3"/></svg>
+    </button>
   `;
   mapFrame.appendChild(controls);
   document.getElementById("zoom-in").addEventListener("click", ()=> zoomBy(1.4));
   document.getElementById("zoom-out").addEventListener("click", ()=> zoomBy(1/1.4));
-  document.getElementById("recenter-btn").addEventListener("click", recenterOnGPS);
-  const gpsToggleBtn = document.getElementById("gps-toggle-btn");
-  gpsToggleBtn.classList.toggle("active", isTracking);
-  gpsToggleBtn.addEventListener("click", ()=>{
-    if (isTracking) stopTracking(); else startTracking();
+  document.getElementById("home-btn").addEventListener("click", ()=> resetView(true));
+
+  const locationBtn = document.getElementById("location-btn");
+  locationBtn.classList.toggle("active", isTracking);
+  locationBtn.addEventListener("click", ()=>{
+    if (isTracking) recenterOnGPS();
+    else startTracking();
   });
 
   const coordsBar = document.createElement("div");
   coordsBar.className = "map-coords-bar";
   coordsBar.id = "coords";
-  coordsBar.textContent = isTracking ? "position — recherche…" : "GPS inactif — touche 📍 pour suivre ta position";
+  coordsBar.textContent = isTracking ? "position — recherche…" : "Touche la mire pour suivre ta position";
   mapFrame.appendChild(coordsBar);
 }
 
@@ -1374,7 +1383,8 @@ window.addEventListener("resize", ()=>{
 
 function startTracking(){
   isTracking = true;
-  renderMapChrome(); // rebâtit les contrôles flottants (bouton GPS actif, barre coords)
+  hasFirstFix = false;
+  renderMapChrome(); // rebâtit les contrôles flottants (bouton position actif, barre coords)
   const dot = document.getElementById("gps-dot");
   // le point reste caché tant qu'aucune position réelle n'est reçue —
   // sinon il paraît "figé au centre" comme si rien ne se passait.
@@ -1401,6 +1411,10 @@ function startTracking(){
         } else if (dot){
           // Carte de démo sans géoréférencement réel : simulation visuelle.
           if (!simInterval) startSimulatedDot();
+        }
+        if (!hasFirstFix){
+          hasFirstFix = true;
+          recenterOnGPS(); // premier signal reçu : on centre directement dessus
         }
       },
       err => {
@@ -1430,11 +1444,16 @@ function startSimulatedDot(){
     dot.style.top = y+"%";
     dot.style.display = "block";
     lastDotPercent = { x, y };
+    if (!hasFirstFix){
+      hasFirstFix = true;
+      recenterOnGPS();
+    }
   }, 500);
 }
 
 function stopTracking(){
   isTracking = false;
+  hasFirstFix = false;
   if (watchId){ navigator.geolocation.clearWatch(watchId); watchId = null; }
   if (simInterval){ clearInterval(simInterval); simInterval = null; }
   const dot = document.getElementById("gps-dot");
