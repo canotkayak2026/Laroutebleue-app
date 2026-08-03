@@ -653,40 +653,44 @@
   }
 
   .howto{
-    position:relative;
-    padding:26px 24px 8px;
     background:#fff;
     border-top:1px solid var(--ripple);
     border-bottom:1px solid var(--ripple);
   }
-  .howto-hide{
-    position:absolute;
-    top:10px; right:10px;
+  .howto-toggle{
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    padding:16px;
     background:none;
     border:none;
-    color:var(--ink-soft);
-    font-size:13px;
-    padding:6px;
     cursor:pointer;
-    opacity:0.6;
-  }
-  .howto-hide:active{ opacity:1; }
-  .howto h3{
     font-family:var(--font-display);
     font-size:13px;
     font-weight:700;
     text-transform:uppercase;
     letter-spacing:0.05em;
     color:var(--ink-soft);
-    margin:0 0 16px;
-    text-align:center;
   }
+  .howto-toggle .chevron{
+    transition:transform .2s ease;
+    color:var(--teal-dark);
+  }
+  .howto.open .howto-toggle .chevron{ transform:rotate(90deg); }
+  .howto-body{
+    display:none;
+    padding:4px 24px 22px;
+  }
+  .howto.open .howto-body{ display:block; }
   .howto-step{
     display:flex;
     align-items:flex-start;
     gap:12px;
     margin-bottom:18px;
   }
+  .howto-step:last-child{ margin-bottom:0; }
   .howto-num{
     flex:none;
     width:26px; height:26px;
@@ -846,24 +850,28 @@
         <div class="hero-stats" id="hero-stats"></div>
       </div>
 
-      <div class="howto" id="howto-section">
-        <button class="howto-hide" id="hide-howto" title="Masquer">✕</button>
-        <h3>Comment ça fonctionne</h3>
-        <div class="howto-step">
-          <div class="howto-num">1</div>
-          <div><b>Explore le catalogue</b><span>Trouve un parcours par région, rivière ou recherche.</span></div>
-        </div>
-        <div class="howto-step">
-          <div class="howto-num">2</div>
-          <div><b>Télécharge la carte</b><span>Elle s'ajoute à ton dossier et reste sur ton téléphone.</span></div>
-        </div>
-        <div class="howto-step">
-          <div class="howto-num">3</div>
-          <div><b>Consulte-la sur l'eau</b><span>Ouvre-la même sans réseau, avec ta position en temps réel.</span></div>
-        </div>
-        <div class="howto-step">
-          <div class="howto-num">4</div>
-          <div><b>Retrouve-la dans Mon dossier</b><span>Toutes tes cartes téléchargées, prêtes à rouvrir.</span></div>
+      <div class="howto">
+        <button class="howto-toggle" id="howto-toggle">
+          <span>Comment ça fonctionne</span>
+          <span class="chevron">›</span>
+        </button>
+        <div class="howto-body" id="howto-body">
+          <div class="howto-step">
+            <div class="howto-num">1</div>
+            <div><b>Explore le catalogue</b><span>Trouve un parcours par région, rivière ou recherche.</span></div>
+          </div>
+          <div class="howto-step">
+            <div class="howto-num">2</div>
+            <div><b>Télécharge la carte</b><span>Elle s'ajoute à ton dossier et reste sur ton téléphone.</span></div>
+          </div>
+          <div class="howto-step">
+            <div class="howto-num">3</div>
+            <div><b>Consulte-la sur l'eau</b><span>Ouvre-la même sans réseau, avec ta position en temps réel.</span></div>
+          </div>
+          <div class="howto-step">
+            <div class="howto-num">4</div>
+            <div><b>Retrouve-la dans Mon dossier</b><span>Toutes tes cartes téléchargées, prêtes à rouvrir.</span></div>
+          </div>
         </div>
       </div>
 
@@ -871,7 +879,6 @@
         Cette appli s'appuie sur le travail de<br>
         <a href="https://laroutebleue.ca/" target="_blank" rel="noopener">laroutebleue.ca ↗</a>
         <div class="hero-footer-links">
-          <button id="show-howto" style="display:none;">Comment ça fonctionne</button>
           <button id="open-terms">Conditions d'utilisation</button>
         </div>
       </div>
@@ -1038,7 +1045,11 @@ function allRoutes(){
   return out;
 }
 
-function niveauMeta(rt){ return `${rt.km} km · ${rt.niveau}`; }
+function niveauMeta(rt){
+  const parts = [`${rt.km} km`, rt.niveau];
+  if (rt.duree) parts.push(rt.duree);
+  return parts.join(" · ");
+}
 
 async function isDownloaded(routeId){
   const cache = await caches.open(MAPS_CACHE);
@@ -1667,21 +1678,10 @@ document.querySelectorAll(".nav-btn").forEach(btn=>{
 document.getElementById("hero-cta").addEventListener("click", ()=> switchScreen("catalogue"));
 document.getElementById("home-link").addEventListener("click", ()=> switchScreen("accueil"));
 
-/* ---------- Tuto masquable ---------- */
-function applyHowtoState(){
-  const dismissed = localStorage.getItem("rb-howto-dismissed") === "1";
-  document.getElementById("howto-section").style.display = dismissed ? "none" : "block";
-  document.getElementById("show-howto").style.display = dismissed ? "inline" : "none";
-}
-document.getElementById("hide-howto").addEventListener("click", ()=>{
-  localStorage.setItem("rb-howto-dismissed", "1");
-  applyHowtoState();
+/* ---------- Tuto en accordéon (fermé par défaut) ---------- */
+document.getElementById("howto-toggle").addEventListener("click", ()=>{
+  document.getElementById("howto-toggle").closest(".howto").classList.toggle("open");
 });
-document.getElementById("show-howto").addEventListener("click", ()=>{
-  localStorage.removeItem("rb-howto-dismissed");
-  applyHowtoState();
-});
-applyHowtoState();
 
 document.getElementById("open-terms").addEventListener("click", ()=>{
   document.getElementById("terms-modal").classList.add("show");
