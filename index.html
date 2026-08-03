@@ -1168,6 +1168,7 @@ async function renderCatalogue(){
   }
 
   updateDlCount();
+  updateNetStatus(); // ré-applique l'état grisé/actif aux boutons fraîchement rendus
 
   // remplir le select de commentaires
   commentRouteSelect.innerHTML = allRoutes()
@@ -1195,6 +1196,10 @@ async function downloadRoute(btn){
   const id = btn.dataset.id;
   if (btn.classList.contains("done")) {
     selectRouteOnMap(id); // ouvre directement en plein écran (voir setFullscreen)
+    return;
+  }
+  if (!navigator.onLine){
+    showToast("Connexion requise pour télécharger une nouvelle carte");
     return;
   }
   btn.classList.add("loading");
@@ -1748,6 +1753,11 @@ function updateNetStatus(){
   const online = navigator.onLine;
   document.getElementById("net-dot").classList.toggle("off", !online);
   document.getElementById("net-label").textContent = online ? "En ligne" : "Hors ligne";
+
+  document.querySelectorAll(".dl-btn:not(.done)").forEach(btn=>{
+    btn.disabled = !online;
+    btn.style.opacity = online ? "1" : "0.45";
+  });
 }
 window.addEventListener("online", ()=>{ updateNetStatus(); updateMapNetBadge(); });
 window.addEventListener("offline", ()=>{ updateNetStatus(); updateMapNetBadge(); });
