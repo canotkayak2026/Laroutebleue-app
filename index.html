@@ -1371,17 +1371,31 @@ function recenterOnGPS(){
 
 function setupMapGestures(){
   if (!mapFrame) return;
-  mapFrame.addEventListener("pointerdown", (e)=>{
-    if (e.target.closest(".map-controls, .map-top-bar, .map-coords-bar")) return;
-    mapFrame.setPointerCapture(e.pointerId);
-    activePointers.set(e.pointerId, { x:e.clientX, y:e.clientY });
+
+  // Recalcule toujours la référence (position de départ) à partir de
+  // l'état ACTUEL — c'est ça qui évite les sauts quand on passe d'un
+  // doigt à deux (ou l'inverse) en plein geste.
+  function rebaseGesture(){
     if (activePointers.size === 1){
-      panStart = { x:e.clientX, y:e.clientY, viewX, viewY };
+      const [p] = activePointers.values();
+      panStart = { x:p.x, y:p.y, viewX, viewY };
+      pinchStartDist = null;
     } else if (activePointers.size === 2){
       const pts = [...activePointers.values()];
       pinchStartDist = Math.hypot(pts[0].x-pts[1].x, pts[0].y-pts[1].y);
       pinchStartScale = viewScale;
+      panStart = null;
+    } else {
+      panStart = null;
+      pinchStartDist = null;
     }
+  }
+
+  mapFrame.addEventListener("pointerdown", (e)=>{
+    if (e.target.closest(".map-controls, .map-top-bar, .map-coords-bar")) return;
+    mapFrame.setPointerCapture(e.pointerId);
+    activePointers.set(e.pointerId, { x:e.clientX, y:e.clientY });
+    rebaseGesture();
   });
   mapFrame.addEventListener("pointermove", (e)=>{
     if (!activePointers.has(e.pointerId)) return;
@@ -1410,8 +1424,7 @@ function setupMapGestures(){
   });
   const endPointer = (e)=>{
     activePointers.delete(e.pointerId);
-    if (activePointers.size < 2) pinchStartDist = null;
-    if (activePointers.size === 0) panStart = null;
+    rebaseGesture(); // ré-établit une référence propre pour le(s) doigt(s) restant(s)
   };
   mapFrame.addEventListener("pointerup", endPointer);
   mapFrame.addEventListener("pointercancel", endPointer);
