@@ -1,28 +1,52 @@
 {
   "regions": [
     {
-      "region": "Région de Québec",
+      "region": "Bas-Saint-Laurent",
       "rivers": [
         {
-          "river": "Fleuve Saint-Laurent (Estuaire fluvial)",
+          "river": "Fleuve Saint-Laurent (Estuaire moyen)",
           "routes": [
             {
-              "id": "deux-montagnes-t1",
-              "name": "Deux-Montagnes T1",
+              "id": "est-trois-pistoles",
+              "name": "Est Trois-Pistoles",
               "km": null,
               "niveau": "Intermédiaire",
               "duree": null
             },
             {
-              "id": "deschambault-portneuf",
-              "name": "Deschambault-Portneuf",
+              "id": "ouest-trois-pistoles",
+              "name": "Ouest Trois-Pistoles",
               "km": null,
               "niveau": "Intermédiaire",
               "duree": null
             },
             {
-              "id": "cap-sante",
-              "name": "Cap-Santé",
+              "id": "119-la-malbaie-pointe-au-pic",
+              "name": "119 La Malbaie Pointe au pic",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "region": "Saguenay–Lac-Saint-Jean",
+      "rivers": [
+        {
+          "river": "Rivière Ashuapmushan",
+          "routes": [
+            {
+              "id": "ashuapmushuan-chute-a-l-ours-vf2",
+              "name": "Ashuapmushuan chute a l'ours VF2",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "ashuapmushuan-ile-aux-trembles",
+              "name": "Ashuapmushuan ile aux trembles",
               "km": null,
               "niveau": "Intermédiaire",
               "duree": null
@@ -30,11 +54,139 @@
           ]
         },
         {
-          "river": "Rivière Noire 05 (Ste-Anne)",
+          "river": "Rivière Mistassini",
           "routes": [
             {
-              "id": "lacs-long-montauban-global",
-              "name": "Lacs Long Montauban Global",
+              "id": "les-mistassins-1",
+              "name": "Les Mistassins 1",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "les-mistassins-2",
+              "name": "Les Mistassins 2",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "les-mistassins-3",
+              "name": "Les Mistassins 3",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "les-mistassins-4",
+              "name": "Les Mistassins 4",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "les-mistassins-5",
+              "name": "Les Mistassins 5",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "les-mistassins-6",
+              "name": "Les Mistassins 6",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            }
+          ]
+        },
+        {
+          "river": "Rivière Saguenay",
+          "routes": [
+            {
+              "id": "anse-saint-etienne",
+              "name": "Anse Saint-Étienne",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "sacre-coeur",
+              "name": "Sacré-Coeur",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "sainte-rose-du-nord",
+              "name": "Sainte-Rose-du-Nord",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            }
+          ]
+        },
+        {
+          "river": "Rivière Ouiatchouan",
+          "routes": [
+            {
+              "id": "lac-bouchette",
+              "name": "Lac-Bouchette",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            }
+          ]
+        },
+        {
+          "river": "Rivière Ouiatchouaniche",
+          "routes": [
+            {
+              "id": "ouiatchouaniche-ste-hedwidge-vf2",
+              "name": "Ouiatchouaniche - Ste-Hedwidge VF2",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            }
+          ]
+        },
+        {
+          "river": "Rivière aux Saumons 06",
+          "routes": [
+            {
+              "id": "aux-saumons-la-dore",
+              "name": "aux Saumons - La Doré",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            }
+          ]
+        },
+        {
+          "river": "Lac Saint-Jean",
+          "routes": [
+            {
+              "id": "chambord-vf2",
+              "name": "Chambord VF2",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "mashteuiatsh-roberval-vf2",
+              "name": "Mashteuiatsh-Roberval VF2",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            }
+          ]
+        },
+        {
+          "river": "Rivière aux Iroquois",
+          "routes": [
+            {
+              "id": "st-prime",
+              "name": "St-Prime",
               "km": null,
               "niveau": "Intermédiaire",
               "duree": null
@@ -50,22 +202,15 @@
           "river": "Rivière Sainte-Anne 05",
           "routes": [
             {
-              "id": "saint-raymond",
-              "name": "Saint Raymond",
+              "id": "au-chalet-en-bois-rond",
+              "name": "Au Chalet en Bois Rond",
               "km": null,
               "niveau": "Intermédiaire",
               "duree": null
             },
             {
-              "id": "saint-alban",
-              "name": "Saint Alban",
-              "km": null,
-              "niveau": "Intermédiaire",
-              "duree": null
-            },
-            {
-              "id": "lac-simon",
-              "name": "Lac Simon",
+              "id": "des-gorges",
+              "name": "Des Gorges",
               "km": null,
               "niveau": "Intermédiaire",
               "duree": null
@@ -78,8 +223,602 @@
               "duree": null
             },
             {
-              "id": "des-gorges",
-              "name": "Des Gorges",
+              "id": "lac-simon",
+              "name": "Lac Simon",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "saint-alban",
+              "name": "Saint Alban",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "saint-raymond",
+              "name": "Saint Raymond",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            }
+          ]
+        },
+        {
+          "river": "Rivière Maskinongé 05",
+          "routes": [
+            {
+              "id": "saint-didace",
+              "name": "Saint-Didace",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "region": "Région de Québec",
+      "rivers": [
+        {
+          "river": "Rivière Noire 05 (Ste-Anne)",
+          "routes": [
+            {
+              "id": "lacs-long-montauban-global",
+              "name": "Lacs Long Montauban Global",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            }
+          ]
+        },
+        {
+          "river": "Fleuve Saint-Laurent (Estuaire fluvial)",
+          "routes": [
+            {
+              "id": "cap-sante",
+              "name": "Cap-Santé",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "deschambault-portneuf",
+              "name": "Deschambault-Portneuf",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "donnacona-neuville",
+              "name": "Donnacona-Neuville",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "grondines-deschambault",
+              "name": "Grondines-Deschambault",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "trois-rivieres",
+              "name": "Trois-Rivières",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "leclercville",
+              "name": "Leclercville",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "lotbiniere",
+              "name": "Lotbinière",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "becancour",
+              "name": "Bécancour",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "region": "Montérégie",
+      "rivers": [
+        {
+          "river": "Fleuve Saint-Laurent (Tronçon fluvial)",
+          "routes": [
+            {
+              "id": "verdun",
+              "name": "Verdun",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "lavaltrie-lanoraie",
+              "name": "Lavaltrie Lanoraie",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "plage-de-l-est",
+              "name": "Plage de l Est",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "repentigny-st-sulpice",
+              "name": "Repentigny St-Sulpice",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "st-sulpice-lavaltrie",
+              "name": "St-Sulpice Lavaltrie",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "iles-de-boucherville-sepaq",
+              "name": "Iles de Boucherville - SEPAQ",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "varennes",
+              "name": "Varennes",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            }
+          ]
+        },
+        {
+          "river": "Rivière Châteauguay",
+          "routes": [
+            {
+              "id": "coteau-du-lac-ab",
+              "name": "Coteau-du-Lac AB",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "ile-st-bernard-chateauguay",
+              "name": "Île St-Bernard (Châteauguay)",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "les-cedres-bc",
+              "name": "Les Cèdres BC",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "les-cedres-cd",
+              "name": "Les Cèdres CD",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "ormstown-sainte-martine",
+              "name": "Ormstown-Sainte-Martine",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "pointe-des-cascades-de",
+              "name": "Pointe des Cascades DE",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "sainte-martine-aller-retour",
+              "name": "Sainte-Martine Aller retour",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "sainte-martine-mercier",
+              "name": "Sainte-Martine-Mercier",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            }
+          ]
+        },
+        {
+          "river": "Rivière Richelieu",
+          "routes": [
+            {
+              "id": "contrecoeur",
+              "name": "Contrecoeur",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "henryville-tour-de-l-ile-aux-noix",
+              "name": "Henryville Tour de l'île-aux-noix",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "henryville-centre-de-plein-air-l-estacade-parcours-sud",
+              "name": "Henryville-Centre de Plein air l Estacade Parcours Sud",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "ile-sainte-therese",
+              "name": "Île-Sainte-Thérèse",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "parc-goyette",
+              "name": "Parc Goyette",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "riviere-richelieu-1-chambly-vf3",
+              "name": "Rivière Richelieu-1 Chambly vf3",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "riviere-richelieu-2-saint-basile",
+              "name": "Rivière Richelieu-2 Saint-Basile",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "riviere-richelieu-3-otterburn-park",
+              "name": "Rivière Richelieu-3 Otterburn Park",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "riviere-richelieu-4-msh-beloeil",
+              "name": "Rivière Richelieu-4 MSH - Beloeil",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "riviere-richelieu-5-des-patriotes",
+              "name": "Rivière Richelieu-5 des Patriotes",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "saint-jean-sur-richelieu",
+              "name": "Saint-Jean-sur-Richelieu",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            }
+          ]
+        },
+        {
+          "river": "Rivière Saint-Charles 03 (Valleyfield)",
+          "routes": [
+            {
+              "id": "saint-charles-parcours-1-vf3",
+              "name": "Saint-Charles - Parcours 1 vf3",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "saint-charles-parcours-2-vf3",
+              "name": "Saint-Charles - Parcours 2 vf3",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "saint-charles-parcours-3",
+              "name": "Saint-Charles - Parcours 3",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "region": "Outaouais",
+      "rivers": [
+        {
+          "river": "Rivière de la Petite Nation",
+          "routes": [
+            {
+              "id": "plaisance",
+              "name": "Plaisance",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "region": "Gaspésie",
+      "rivers": [
+        {
+          "river": "Golfe Saint-Laurent",
+          "routes": [
+            {
+              "id": "gaspe",
+              "name": "Gaspe",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "ile-de-la-madeleine",
+              "name": "Île de la Madeleine",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "sainte-anne-des-monts",
+              "name": "Sainte-Anne-des-Monts",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            }
+          ]
+        },
+        {
+          "river": "Baie des Chaleurs",
+          "routes": [
+            {
+              "id": "074-pointe-a-la-croix",
+              "name": "074 Pointe-a-la-Croix",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "076-carleton-sur-mer",
+              "name": "076 Carleton-sur-Mer",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "087-escuminac-misguasha",
+              "name": "087 Escuminac Misguasha",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "087-nouvelle-miguasha",
+              "name": "087 Nouvelle Miguasha",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "106-new-richmond",
+              "name": "106 New Richmond",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "112-pointe-a-la-garde",
+              "name": "112 Pointe à la Garde",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            }
+          ]
+        },
+        {
+          "river": "Rivière Tarigou",
+          "routes": [
+            {
+              "id": "le-bassin-montmagny",
+              "name": "Le Bassin (Montmagny)",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "region": "Chaudière-Appalaches",
+      "rivers": [
+        {
+          "river": "Rivière Chaudière",
+          "routes": [
+            {
+              "id": "saint-joseph-de-beauce",
+              "name": "Saint-Joseph-de-Beauce",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "saint-joseph-de-beauce-vf2",
+              "name": "Saint-Joseph-de-Beauce VF2",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "region": "Laval",
+      "rivers": [
+        {
+          "river": "Rivière des Milles-Îles",
+          "routes": [
+            {
+              "id": "des-mille-iles-terrebonne",
+              "name": "des Mille-Îles - Terrebonne",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "region": "Lanaudière",
+      "rivers": [
+        {
+          "river": "Rivière L'Assomption",
+          "routes": [
+            {
+              "id": "lassomption-vf2",
+              "name": "LAssomption VF2",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "region": "Centre-du-Québec",
+      "rivers": [
+        {
+          "river": "Rivière Bécancour",
+          "routes": [
+            {
+              "id": "becancour-w8linak",
+              "name": "Bécancour-W8linak",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "lac-joseph",
+              "name": "Lac Joseph",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "lac-william",
+              "name": "Lac William",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "lyster",
+              "name": "Lyster",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "pont-chevilles-au-lac-william",
+              "name": "Pont Chevilles au Lac William",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            }
+          ]
+        },
+        {
+          "river": "Rivière Nicolet Sud-Ouest",
+          "routes": [
+            {
+              "id": "kingsey-falls-danville",
+              "name": "Kingsey Falls-Danville",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            }
+          ]
+        },
+        {
+          "river": "Rivière Saint-François",
+          "routes": [
+            {
+              "id": "boucle-en-huit",
+              "name": "Boucle en Huit",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "chenal-tardif",
+              "name": "Chenal-Tardif",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "pierreville",
+              "name": "Pierreville",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "quai-joseph-duval",
+              "name": "Quai joseph-Duval",
+              "km": null,
+              "niveau": "Intermédiaire",
+              "duree": null
+            },
+            {
+              "id": "saint-francois-du-lac",
+              "name": "Saint-François-du-Lac",
               "km": null,
               "niveau": "Intermédiaire",
               "duree": null
@@ -90,15 +829,15 @@
     }
   ],
   "geo": {
-    "deux-montagnes-t1": {
+    "est-trois-pistoles": {
       "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
       "transform": [
-        0.340913710947425,
+        2.032004064008106,
         0,
-        494466.81028791744,
+        859976.6645966155,
         0,
-        -0.340913710947425,
-        178646.5604259749
+        -2.032004064008106,
+        464021.5221609514
       ],
       "orig_width": 2550,
       "orig_height": 3300,
@@ -107,15 +846,15 @@
       "total_width": 1236,
       "total_height": 1600
     },
-    "deschambault-portneuf": {
+    "ouest-trois-pistoles": {
       "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
       "transform": [
-        2.0320040640080697,
+        1.6933367200068459,
         0,
-        652030.0879896396,
+        857316.6426095414,
         0,
-        -2.0320040640081425,
-        302024.12058978423
+        -1.693336720006755,
+        460473.8229521558
       ],
       "orig_width": 2550,
       "orig_height": 3300,
@@ -124,62 +863,49 @@
       "total_width": 1236,
       "total_height": 1600
     },
-    "cap-sante": {
+    "ashuapmushuan-chute-a-l-ours-vf2": {
       "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
       "transform": [
-        2.0953972857107073,
-        -2.0953972857107073,
-        666442.2329256238,
-        -2.0953972857107073,
-        -2.0953972857107073,
-        302810.78442238487
+        1.7208237064272485,
+        3.399253423322859,
+        597730.6500168833,
+        3.399253423322859,
+        -1.7208237064272485,
+        535658.8823343915
       ],
-      "orig_width": 2550,
-      "orig_height": 3300,
+      "orig_width": 3400,
+      "orig_height": 4400,
       "content_height": 1600,
       "header_height": 0,
       "total_width": 1236,
       "total_height": 1600
     },
-    "lacs-long-montauban-global": {
-      "crs_proj4": {
-        "title": "WGS 84 / Pseudo-Mercator",
-        "projName": "merc",
-        "a": 6378137,
-        "b": 6378137,
-        "lat_ts": 0,
-        "long0": 0,
-        "x0": 0,
-        "y0": 0,
-        "k0": 1,
-        "units": "m",
-        "datumCode": "none",
-        "no_defs": true
-      },
-      "transform": [
-        6.7733468800273835,
-        0,
-        -8038992.29052022,
-        0,
-        -6.7733468800273835,
-        5932261.445601887
-      ],
-      "orig_width": 2550,
-      "orig_height": 3300,
-      "content_height": 1600,
-      "header_height": 0,
-      "total_width": 1236,
-      "total_height": 1600
-    },
-    "saint-raymond": {
+    "ashuapmushuan-ile-aux-trembles": {
       "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
       "transform": [
-        1.6933367200067735,
+        1.5240030480060522,
         0,
-        656516.8213616175,
+        601970.7077649499,
         0,
-        -1.6933367200067735,
-        324717.0616624876
+        -1.5240030480060522,
+        541977.9208221918
+      ],
+      "orig_width": 3400,
+      "orig_height": 4400,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "les-mistassins-1": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        4.943140563045817,
+        -1.1712662378301337,
+        598282.9095486633,
+        -1.1712662378301337,
+        -4.943140563045817,
+        650234.0073570375
       ],
       "orig_width": 2550,
       "orig_height": 3300,
@@ -188,36 +914,15 @@
       "total_width": 1236,
       "total_height": 1600
     },
-    "saint-alban": {
-      "crs_proj4": {
-        "projName": "lcc",
-        "lat0": 0.767944870877505,
-        "long0": -1.2217304763960306,
-        "lat1": 0.8726646259971648,
-        "lat2": 0.8028514559173916,
-        "x0": 800000,
-        "y0": 0,
-        "ellps": "GRS80",
-        "datum_params": [
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0
-        ],
-        "units": "m",
-        "no_defs": true,
-        "type": "crs"
-      },
+    "les-mistassins-2": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
       "transform": [
-        2.9633392600118538,
+        5.08001016002032,
         0,
-        639450.9453172501,
+        596931.6530249694,
         0,
-        -2.9633392600118538,
-        312060.33892006485
+        -5.08001016002032,
+        635966.6321789343
       ],
       "orig_width": 2550,
       "orig_height": 3300,
@@ -226,28 +931,253 @@
       "total_width": 1236,
       "total_height": 1600
     },
-    "lac-simon": {
-      "crs_proj4": {
-        "title": "WGS 84 / Pseudo-Mercator",
-        "projName": "merc",
-        "a": 6378137,
-        "b": 6378137,
-        "lat_ts": 0,
-        "long0": 0,
-        "x0": 0,
-        "y0": 0,
-        "k0": 1,
-        "units": "m",
-        "datumCode": "none",
-        "no_defs": true
-      },
+    "les-mistassins-3": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
       "transform": [
-        1.5240030480059796,
+        5.08001016002032,
         0,
-        -8019744.815311857,
+        598291.0545776761,
         0,
-        -1.5240030480059796,
-        5927186.823278004
+        -5.08001016002032,
+        622349.4797240099
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "les-mistassins-4": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        5.08001016002032,
+        0,
+        599145.0177655817,
+        0,
+        -5.08001016002032,
+        610023.2443497194
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "les-mistassins-5": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        4.1573906248594605,
+        0.7983019404343608,
+        600719.031265025,
+        0.7983019404343608,
+        -4.1573906248594605,
+        597778.063385534
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "les-mistassins-6": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        5.899469311406288,
+        -0.5672566645582934,
+        601206.7332123733,
+        -0.5672566645582934,
+        -5.899469311406288,
+        591996.2688313246
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "anse-saint-etienne": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        4.233341800016934,
+        0,
+        800167.862702365,
+        0,
+        -4.233341800016934,
+        474919.7330877011
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "sacre-coeur": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.364076825808104,
+        0.9288522854332084,
+        804219.5140183795,
+        0.9288522854332351,
+        -2.364076825808172,
+        471954.6859081605
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "sainte-rose-du-nord": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.1539200000129237,
+        1.3462000000080774,
+        749518.5957451538,
+        1.3462000000080774,
+        -2.1539200000129237,
+        489810.4868476624
+      ],
+      "orig_width": 3400,
+      "orig_height": 4400,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "lac-bouchette": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        3.0490857468364223,
+        -0.8852917208807174,
+        632221.4382310958,
+        -0.8852917208807174,
+        -3.0490857468364223,
+        481545.821162766
+      ],
+      "orig_width": 3400,
+      "orig_height": 4400,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "ouiatchouaniche-ste-hedwidge-vf2": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        0.6815548826516817,
+        0.34077744132584087,
+        623023.3858967745,
+        0.34077744132584087,
+        -0.6815548826516817,
+        500507.8273704716
+      ],
+      "orig_width": 3400,
+      "orig_height": 4400,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "aux-saumons-la-dore": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        0.4307840000026034,
+        -0.2692400000016266,
+        604825.4004471842,
+        -0.2692400000016266,
+        -0.4307840000026034,
+        526961.0972749005
+      ],
+      "orig_width": 3400,
+      "orig_height": 4400,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "chambord-vf2": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.54000508001016,
+        0,
+        641332.710497649,
+        0,
+        -2.54000508001016,
+        503126.1235601531
+      ],
+      "orig_width": 3400,
+      "orig_height": 4400,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "mashteuiatsh-roberval-vf2": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.8575057150114302,
+        0,
+        631276.3880250473,
+        0,
+        -2.8575057150114302,
+        512590.5690529062
+      ],
+      "orig_width": 3400,
+      "orig_height": 4400,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "st-prime": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        0.43651695550370595,
+        0.2598422210051603,
+        626657.7531573084,
+        0.2598422210051603,
+        -0.43651695550370595,
+        514692.39014232316
+      ],
+      "orig_width": 3400,
+      "orig_height": 4400,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "au-chalet-en-bois-rond": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        0.9251874832504402,
+        -1.1025955069869073,
+        654370.440633041,
+        -1.1025955069869073,
+        -0.9251874832504402,
+        320916.5368650692
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "des-gorges": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.7093387520108085,
+        0,
+        635495.5310697734,
+        0,
+        -2.7093387520108085,
+        305394.80724507425
       ],
       "orig_width": 2550,
       "orig_height": 3300,
@@ -286,36 +1216,1197 @@
       "total_width": 1236,
       "total_height": 1600
     },
-    "des-gorges": {
+    "lac-simon": {
       "crs_proj4": {
-        "projName": "lcc",
-        "lat0": 0.767944870877505,
-        "long0": -1.2217304763960306,
-        "lat1": 0.8726646259971648,
-        "lat2": 0.8028514559173916,
-        "x0": 800000,
+        "title": "WGS 84 / Pseudo-Mercator",
+        "projName": "merc",
+        "a": 6378137,
+        "b": 6378137,
+        "lat_ts": 0,
+        "long0": 0,
+        "x0": 0,
         "y0": 0,
-        "ellps": "GRS80",
-        "datum_params": [
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0
-        ],
+        "k0": 1,
         "units": "m",
-        "no_defs": true,
-        "type": "crs"
+        "datumCode": "none",
+        "no_defs": true
       },
       "transform": [
-        2.7093387520108085,
+        1.5240030480059796,
         0,
-        635495.5310697734,
+        -8019744.815311857,
         0,
-        -2.7093387520108085,
-        305394.80724507425
+        -1.5240030480059796,
+        5927186.823278004
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "saint-alban": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.9633392600118538,
+        0,
+        639450.9453172501,
+        0,
+        -2.9633392600118538,
+        312060.33892006485
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "saint-raymond": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        1.6933367200067735,
+        0,
+        656516.8213616175,
+        0,
+        -1.6933367200067735,
+        324717.0616624876
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "lacs-long-montauban-global": {
+      "crs_proj4": {
+        "title": "WGS 84 / Pseudo-Mercator",
+        "projName": "merc",
+        "a": 6378137,
+        "b": 6378137,
+        "lat_ts": 0,
+        "long0": 0,
+        "x0": 0,
+        "y0": 0,
+        "k0": 1,
+        "units": "m",
+        "datumCode": "none",
+        "no_defs": true
+      },
+      "transform": [
+        6.7733468800273835,
+        0,
+        -8038992.29052022,
+        0,
+        -6.7733468800273835,
+        5932261.445601887
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "cap-sante": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.0953972857107073,
+        -2.0953972857107073,
+        666442.2329256238,
+        -2.0953972857107073,
+        -2.0953972857107073,
+        302810.78442238487
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "deschambault-portneuf": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.0320040640080697,
+        0,
+        652030.0879896396,
+        0,
+        -2.0320040640081425,
+        302024.12058978423
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "donnacona-neuville": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.932945233373766,
+        -1.6933367200067735,
+        673765.7395852518,
+        -1.6933367200067735,
+        -2.932945233373766,
+        306493.34819842427
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "grondines-deschambault": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        4.233341800016934,
+        0,
+        642656.3166256715,
+        0,
+        -4.233341800016934,
+        299002.0735178916
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "119-la-malbaie-pointe-au-pic": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.0320040640080697,
+        0,
+        787962.9923360931,
+        0,
+        -2.0320040640081425,
+        408927.58787089575
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "trois-rivieres": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.0320040640080697,
+        0,
+        603420.9447389713,
+        0,
+        -2.0320040640081425,
+        268308.5232688347
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "verdun": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        1.9050038100076199,
+        0,
+        518725.7340334133,
+        0,
+        -1.9050038100076199,
+        172478.24820739002
+      ],
+      "orig_width": 3400,
+      "orig_height": 4400,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "plaisance": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.540005080010178,
+        0,
+        397232.2008269677,
+        0,
+        -2.540005080010178,
+        196914.6196470181
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "gaspe": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        3.386673440013547,
+        0,
+        1207523.4259563007,
+        0,
+        -3.386673440013547,
+        555317.2238127511
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "ile-de-la-madeleine": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        1.27000254000508,
+        0,
+        1410924.8347449207,
+        0,
+        -1.27000254000508,
+        407633.4272951039
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "sainte-anne-des-monts": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        1.197369877549027,
+        1.197369877549027,
+        1050256.6101341345,
+        1.197369877549027,
+        -1.197369877549027,
+        576354.9016889512
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "074-pointe-a-la-croix": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.54000508001016,
+        0,
+        1046538.1708458049,
+        0,
+        -2.54000508001016,
+        457473.4247227484
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "076-carleton-sur-mer": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        1.4368438530587293,
+        -1.4368438530587293,
+        1085818.906454822,
+        -1.436843853058781,
+        -1.436843853058781,
+        467882.0097018761
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "087-escuminac-misguasha": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.9633392600118538,
+        0,
+        1061565.4041140114,
+        0,
+        -2.9633392600118538,
+        468217.71067120845
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "087-nouvelle-miguasha": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.0320040640080697,
+        0,
+        1067760.7987105837,
+        0,
+        -2.0320040640081425,
+        466004.36615644867
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "106-new-richmond": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.0320040640080697,
+        0,
+        1104232.6925146477,
+        0,
+        -2.0320040640081425,
+        474181.25025638565
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "112-pointe-a-la-garde": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.54000508001016,
+        0,
+        1056510.4195689748,
+        0,
+        -2.54000508001016,
+        465725.2181206755
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "saint-joseph-de-beauce": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        3.407774413258506,
+        1.703887206629253,
+        720703.3710061419,
+        1.703887206629253,
+        -3.407774413258506,
+        262201.9679096049
+      ],
+      "orig_width": 3400,
+      "orig_height": 4400,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "saint-joseph-de-beauce-vf2": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        3.407774413258506,
+        1.703887206629253,
+        720703.3710061419,
+        1.703887206629253,
+        -3.407774413258506,
+        262201.9679096049
+      ],
+      "orig_width": 3400,
+      "orig_height": 4400,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "leclercville": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        1.7949225748269118,
+        0.6381946932717907,
+        643638.0721642051,
+        0.6381946932717907,
+        -1.7949225748269118,
+        292759.4026954548
+      ],
+      "orig_width": 3400,
+      "orig_height": 4400,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "lotbiniere": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        3.8100076200152397,
+        0,
+        648007.6258837334,
+        0,
+        -3.8100076200152397,
+        304063.84331915266
+      ],
+      "orig_width": 3400,
+      "orig_height": 4400,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "le-bassin-montmagny": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        0.8466683600033867,
+        0,
+        757019.0992985568,
+        0,
+        -0.8466683600033867,
+        334105.39154875366
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "des-mille-iles-terrebonne": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.1117244312725116,
+        -0.6929256341419786,
+        507129.6292851169,
+        -0.6929256341419786,
+        -2.1117244312725116,
+        198775.74184643914
+      ],
+      "orig_width": 3400,
+      "orig_height": 4400,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "lassomption-vf2": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.7475601755040033,
+        0.7850171930011435,
+        527323.9523674992,
+        0.7850171930011435,
+        -2.7475601755040033,
+        218674.65623578214
+      ],
+      "orig_width": 3400,
+      "orig_height": 4400,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "saint-didace": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        3.386673440013547,
+        0,
+        539928.406783121,
+        0,
+        -3.386673440013547,
+        271891.53918352013
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "lavaltrie-lanoraie": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        4.217232656387035,
+        0.3689600488851839,
+        540632.8398061299,
+        0.3689600488851839,
+        -4.217232656387035,
+        223073.33692181515
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "plage-de-l-est": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        1.591216020296247,
+        -0.5791552676753591,
+        528405.984731133,
+        -0.579155267675328,
+        -1.5912160202961616,
+        199727.692211662
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "repentigny-st-sulpice": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        5.080010160020356,
+        0,
+        528195.9060354801,
+        0,
+        -5.0800101600203105,
+        211794.92568249462
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "st-sulpice-lavaltrie": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        5.002833390968834,
+        -0.8821345068170259,
+        536852.0258008186,
+        -0.882134506817018,
+        -5.002833390968789,
+        219119.35940414717
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "coteau-du-lac-ab": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        1.4368438530587808,
+        -1.4368438530587808,
+        475522.87257398764,
+        -1.4368438530587808,
+        -1.4368438530587808,
+        158004.31334513993
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "ile-st-bernard-chateauguay": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.032004064008143,
+        0,
+        502700.8189405878,
+        0,
+        -2.032004064008143,
+        163628.09911694657
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "les-cedres-bc": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        1.796054816323463,
+        -1.796054816323463,
+        478386.07016787154,
+        -1.796054816323463,
+        -1.796054816323463,
+        159843.11039170664
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "les-cedres-cd": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        1.796054816323463,
+        -1.796054816323463,
+        482388.29501803865,
+        -1.796054816323463,
+        -1.796054816323463,
+        160273.5740488077
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "ormstown-sainte-martine": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        6.542550681832653,
+        -1.7530711716367504,
+        489387.83996733354,
+        -1.7530711716367504,
+        -6.542550681832653,
+        152484.47553452346
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "pointe-des-cascades-de": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        1.796054816323463,
+        -1.796054816323463,
+        486014.0185711465,
+        -1.796054816323463,
+        -1.796054816323463,
+        160948.91700876952
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "sainte-martine-aller-retour": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        1.8626703920074217,
+        0,
+        498107.44678388344,
+        0,
+        -1.862670392007458,
+        147943.48790384157
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "sainte-martine-mercier": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        3.7521250432265996,
+        0.6616008801127649,
+        497937.9814569656,
+        0.6616008801127649,
+        -3.7521250432265996,
+        157473.81093202092
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "contrecoeur": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.540005080010087,
+        0,
+        544540.5941019232,
+        0,
+        -2.540005080010178,
+        217870.98321475284
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "henryville-tour-de-l-ile-aux-noix": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.9183194780651327,
+        -0.5145784623099282,
+        538553.6862584327,
+        -0.5145784623099282,
+        -2.9183194780651327,
+        134129.91510589467
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "henryville-centre-de-plein-air-l-estacade-parcours-sud": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.9183194780651327,
+        0.5145784623099282,
+        533861.5990875503,
+        0.5145784623099282,
+        -2.9183194780651327,
+        128272.47544442474
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "ile-sainte-therese": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.0320040640080697,
+        0,
+        541940.8629621523,
+        0,
+        -2.0320040640081425,
+        160909.98970108526
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "parc-goyette": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        1.6933367200067735,
+        0,
+        542663.1061323838,
+        0,
+        -1.6933367200067735,
+        151023.08285763598
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "riviere-richelieu-1-chambly-vf3": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.54000508001016,
+        0,
+        540111.4581802213,
+        0,
+        -2.54000508001016,
+        174434.38230993284
+      ],
+      "orig_width": 3400,
+      "orig_height": 4400,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "riviere-richelieu-2-saint-basile": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.54000508001016,
+        0,
+        541844.4586432179,
+        0,
+        -2.54000508001016,
+        179120.8060971959
+      ],
+      "orig_width": 3400,
+      "orig_height": 4400,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "riviere-richelieu-3-otterburn-park": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.8575057150114302,
+        0,
+        543696.8049265383,
+        0,
+        -2.8575057150114302,
+        182610.09155050697
+      ],
+      "orig_width": 3400,
+      "orig_height": 4400,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "riviere-richelieu-4-msh-beloeil": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        3.710978004975347,
+        0.8630181406919403,
+        541625.8747337622,
+        0.8630181406919403,
+        -3.710978004975347,
+        189425.92336810817
+      ],
+      "orig_width": 3400,
+      "orig_height": 4400,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "riviere-richelieu-5-des-patriotes": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        4.270383083495045,
+        1.233666224120791,
+        542494.5848588167,
+        1.233666224120791,
+        -4.270383083495045,
+        203469.4371463123
+      ],
+      "orig_width": 3400,
+      "orig_height": 4400,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "saint-jean-sur-richelieu": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.54000508001016,
+        0,
+        540669.3252838325,
+        0,
+        -2.54000508001016,
+        151165.05490718212
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "saint-charles-parcours-1-vf3": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        1.1966150498846087,
+        -0.42546312884786014,
+        476853.0047555433,
+        -0.42546312884786014,
+        -1.1966150498846087,
+        152427.57824037582
+      ],
+      "orig_width": 3400,
+      "orig_height": 4400,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "saint-charles-parcours-2-vf3": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        0.870315333777409,
+        -0.1813156945369603,
+        477659.23924319533,
+        -0.1813156945369603,
+        -0.870315333777409,
+        151580.83559813024
+      ],
+      "orig_width": 3400,
+      "orig_height": 4400,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "saint-charles-parcours-3": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        0.29873235073302223,
+        -0.10754364626388788,
+        479459.85211233515,
+        -0.10754364626388788,
+        -0.29873235073302223,
+        151137.4752730772
+      ],
+      "orig_width": 3400,
+      "orig_height": 4400,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "iles-de-boucherville-sepaq": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        1.8190057969217377,
+        0.5659129145978739,
+        524870.3822776024,
+        0.5659129145978739,
+        -1.8190057969217377,
+        187931.41363516505
+      ],
+      "orig_width": 3400,
+      "orig_height": 4400,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "varennes": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.032004064008106,
+        0,
+        527967.573187908,
+        0,
+        -2.032004064008106,
+        194332.98003572624
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "becancour-w8linak": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.032004064008106,
+        0,
+        609337.4121070665,
+        0,
+        -2.032004064008106,
+        268348.03594238963
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "lac-joseph": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.540005080010087,
+        0,
+        677464.835609372,
+        0,
+        -2.540005080010178,
+        249639.37739517988
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "lac-william": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.5398373066303326,
+        -0.02919353226011931,
+        675617.8574146137,
+        -0.02919353226012036,
+        -2.539837306630424,
+        241651.6085358059
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "lyster": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.453456505687174,
+        0.6574016893637625,
+        673756.6163006662,
+        0.6574016893637862,
+        -2.4534565056872624,
+        267094.6882481863
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "pont-chevilles-au-lac-william": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        3.1750063500126995,
+        0,
+        676665.8349862633,
+        0,
+        -3.1750063500126995,
+        240374.62786958503
+      ],
+      "orig_width": 3400,
+      "orig_height": 4400,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "kingsey-falls-danville": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.54000508001016,
+        0,
+        637889.8432974217,
+        0,
+        -2.54000508001016,
+        210624.2102611101
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "boucle-en-huit": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.0320040640080697,
+        0,
+        574481.956731393,
+        0,
+        -2.0320040640081425,
+        240451.8245529835
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "chenal-tardif": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.9633392600118538,
+        0,
+        576340.6625082098,
+        0,
+        -2.9633392600118538,
+        242251.59866918574
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "pierreville": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        1.6933367200067735,
+        0,
+        581900.0052717489,
+        0,
+        -1.6933367200067735,
+        235385.89168143744
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "quai-joseph-duval": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.116670900008467,
+        0,
+        594960.2364016304,
+        0,
+        -2.116670900008467,
+        257123.6140005767
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "saint-francois-du-lac": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.9633392600118538,
+        0,
+        574281.5487636832,
+        0,
+        -2.9633392600118538,
+        241744.74627070493
+      ],
+      "orig_width": 2550,
+      "orig_height": 3300,
+      "content_height": 1600,
+      "header_height": 0,
+      "total_width": 1236,
+      "total_height": 1600
+    },
+    "becancour": {
+      "crs_proj4": "+proj=lcc +lat_0=44 +lon_0=-70 +lat_1=50 +lat_2=46 +x_0=800000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs +type=crs",
+      "transform": [
+        2.9633392600118538,
+        0,
+        605511.6210392942,
+        0,
+        -2.9633392600118538,
+        269023.5203035012
       ],
       "orig_width": 2550,
       "orig_height": 3300,
