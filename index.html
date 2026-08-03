@@ -1298,6 +1298,7 @@ let isTracking = false;
 let hasFirstFix = false;
 let lastDotPercent = { x: 50, y: 50 };
 const activePointers = new Map();
+let gestureHadMultitouch = false;
 let pinchStartDist = null, pinchStartScale = 1;
 let panStart = null;
 
@@ -1395,6 +1396,7 @@ function setupMapGestures(){
     if (e.target.closest(".map-controls, .map-top-bar, .map-coords-bar")) return;
     mapFrame.setPointerCapture(e.pointerId);
     activePointers.set(e.pointerId, { x:e.clientX, y:e.clientY });
+    if (activePointers.size >= 2) gestureHadMultitouch = true;
     rebaseGesture();
   });
   mapFrame.addEventListener("pointermove", (e)=>{
@@ -1436,10 +1438,17 @@ function setupMapGestures(){
     zoomBy(e.deltaY < 0 ? 1.15 : 1/1.15, e.clientX, e.clientY);
   }, { passive:false });
 
-  // double-tap pour zoomer
+  // double-tap pour zoomer — ignore la fin d'un geste à deux doigts
+  // (sinon lever les deux doigts d'un pincement presque en même temps se
+  // fait passer pour un "double-tap" et déclenche un zoom en plus, ce qui
+  // donnait l'impression que la carte "rebondissait" après le pincement).
   let lastTap = 0;
   mapFrame.addEventListener("pointerup", (e)=>{
     if (e.target.closest(".map-controls, .map-top-bar, .map-coords-bar")) return;
+    if (gestureHadMultitouch){
+      if (activePointers.size === 0) gestureHadMultitouch = false;
+      return;
+    }
     const now = Date.now();
     if (now - lastTap < 300 && activePointers.size === 0){
       zoomBy(viewScale < 2.5 ? 1.8 : 1/1.8, e.clientX, e.clientY);
