@@ -1,4 +1,4 @@
-const SHELL_CACHE = "rb-shell-v2";
+const SHELL_CACHE = "rb-shell-v3";
 const MAPS_CACHE = "rb-maps-v1";
 
 const SHELL_FILES = [
@@ -29,10 +29,17 @@ self.addEventListener("activate", (event) => {
   self.clients.claim();
 });
 
-// Maps (téléchargées par l'utilisateur pour le hors-ligne) : cache-first,
-// elles doivent rester disponibles même après des dizaines de mises à jour.
-// App shell (index.html, CSS/JS inline, manifest) : network-first, pour que
-// chaque modification que Jeff pousse sur GitHub apparaisse tout de suite,
+// Maps déjà téléchargées (via le bouton "Télécharger", copiées dans
+// ./maps/<id>.png par l'appli elle-même) : cache-first, elles doivent
+// rester dispo même après des dizaines de mises à jour.
+//
+// Miniatures du catalogue (map-<id>.png à la racine — affichées pour
+// TOUTES les cartes, téléchargées ou non) : réseau uniquement, JAMAIS
+// mises en cache ici. Sinon le simple fait de voir une miniature à
+// l'écran suffirait à la rendre disponible hors ligne, ce qui contourne
+// complètement le bouton "Télécharger".
+//
+// App shell (index.html, manifest, catalog.json, etc.) : network-first,
 // avec le cache seulement comme filet de secours si le réseau est absent.
 self.addEventListener("fetch", (event) => {
   const url = new URL(event.request.url);
@@ -41,6 +48,11 @@ self.addEventListener("fetch", (event) => {
     event.respondWith(
       caches.match(event.request).then((hit) => hit || fetch(event.request))
     );
+    return;
+  }
+
+  if (/\/map-[^/]+\.png$/.test(url.pathname)) {
+    event.respondWith(fetch(event.request));
     return;
   }
 
